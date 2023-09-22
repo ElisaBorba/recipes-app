@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -23,13 +25,12 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Enviar o formulário se for válido
-    if (formIsValid) {
-      // Lógica de envio do formulário aqui
 
-      // Salvar o e-mail no localStorage
+    if (formIsValid) {
       const userData = { email };
       localStorage.setItem('user', JSON.stringify(userData));
+
+      navigate('/meals');
     }
   };
 
