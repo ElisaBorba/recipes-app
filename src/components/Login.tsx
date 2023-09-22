@@ -58,7 +58,11 @@ function Login() {
           onChange={ handlePasswordChange }
         />
 
-        <button type="submit" data-testid="login-submit-btn" disabled={ !formIsValid }>
+        <button
+          type="submit"
+          data-testid="login-submit-btn"
+          disabled={ !formIsValid }
+        >
           Entrar
         </button>
       </form>
