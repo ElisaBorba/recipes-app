@@ -13,20 +13,8 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
   const [searchBar, setSearchBar] = useState('');
   const [showSearchBar, setShowSearchBar] = useState(false);
 
-  const handleClickSearchBar = () => {
-    setShowSearchBar(true);
-
-    if (showSearchBar === true) {
-      setShowSearchBar(false);
-    }
-  };
-
-  const handleSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchBar(e.target.value);
-  };
-
   return (
-    <>
+    <div>
       {isProfile && (
         <NavLink to="/profile">
           <img data-testid="profile-top-btn" src={ ProfileIcon } alt="Ícone de Perfil" />
@@ -35,7 +23,7 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
 
       {isSearch && (
         <button
-          onClick={ handleClickSearchBar }
+          onClick={ () => setShowSearchBar(!showSearchBar) }
         >
           <img
             data-testid="search-top-btn"
@@ -54,13 +42,13 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
               type="text"
               id="searchBar"
               value={ searchBar }
-              onChange={ handleSearchBar }
+              onChange={ ({ target }) => setSearchBar(target.value) }
               data-testid="search-input"
               placeholder="Search"
             />
           </label>
         </form>
       )}
-    </>
+    </div>
   );
 }
