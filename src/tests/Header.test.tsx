@@ -54,8 +54,8 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
     expect(inputSearch).toBeInTheDocument();
 
     expect(inputSearch.value).toBe('');
-    await userEvent.type(inputSearch, 'teste');
-    expect(inputSearch.value).toBe('teste');
+    await userEvent.type(inputSearch, 'Teste');
+    expect(inputSearch.value).toBe('Teste');
   });
 
   it('O ícone de perfil deve aparecer na página Done Recipes, mas não o ícone de procura', async () => {
