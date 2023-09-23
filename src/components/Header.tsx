@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
@@ -9,23 +10,45 @@ type HeaderType = {
 };
 
 export default function Header({ title, isProfile, isSearch }: HeaderType) {
+  const [searchBar, setSearchBar] = useState('');
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
   return (
-    <>
+    <div>
       {isProfile && (
-        <img
-          data-testid="profile-top-btn"
-          src={ ProfileIcon }
-          alt="Ícone de Perfil"
-        />
+        <NavLink to="/profile">
+          <img data-testid="profile-top-btn" src={ ProfileIcon } alt="Ícone de Perfil" />
+        </NavLink>
       )}
+
       {isSearch && (
-        <img
-          data-testid="search-top-btn"
-          src={ SearchIcon }
-          alt="ícone de Procura"
-        />
+        <button
+          onClick={ () => setShowSearchBar(!showSearchBar) }
+        >
+          <img
+            data-testid="search-top-btn"
+            src={ SearchIcon }
+            alt="Ícone de Procura"
+          />
+        </button>
       )}
       <h1 data-testid="page-title">{title}</h1>
-    </>
+
+      {showSearchBar
+      && (
+        <form>
+          <label htmlFor="searchBar">
+            <input
+              type="text"
+              id="searchBar"
+              value={ searchBar }
+              onChange={ ({ target }) => setSearchBar(target.value) }
+              data-testid="search-input"
+              placeholder="Search"
+            />
+          </label>
+        </form>
+      )}
+    </div>
   );
 }
