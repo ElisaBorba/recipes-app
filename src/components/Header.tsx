@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 type HeaderType = {
   title: string,
@@ -47,6 +48,7 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
               placeholder="Search"
             />
           </label>
+          <SearchBar />
         </form>
       )}
     </div>
