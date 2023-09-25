@@ -11,20 +11,22 @@ function DrinksProvider({ children }: DrinksProviderProps) {
   const [drinksRecipes, setDrinksRecipes] = useState<DrinkType[] | null>([]);
 
   useEffect(() => {
-    const getFetchApi = async () => {
-      try {
-        const dataDrinks = await fetchDrinks();
-        setDrinksRecipes(dataDrinks);
-      } catch (error) {
+    fetchDrinks()
+      .then((recipes) => {
+        setDrinksRecipes(recipes);
+      })
+      .catch((error) => {
         console.error('Erro ao buscar planetas:', error);
-      }
-    };
-
-    getFetchApi();
+      });
   }, []);
 
+  const value = {
+    drinksRecipes,
+    setDrinksRecipes,
+  };
+
   return (
-    <DrinksContext.Provider value={ drinksRecipes }>
+    <DrinksContext.Provider value={ value }>
       { children }
     </DrinksContext.Provider>
   );

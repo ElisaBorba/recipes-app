@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MealsContext from './MealsContext';
+import { MealType } from '../../types';
 import { fetchMeals } from '../../services/fetchAPI';
 
 type MealsProviderProps = {
@@ -7,19 +8,25 @@ type MealsProviderProps = {
 };
 
 function MealsProvider({ children }: MealsProviderProps) {
-  const [mealsRecipes, setDrinksRecipes] = useState<any[]>([]);
+  const [mealsRecipes, setMealsRecipes] = useState<MealType[] | null >([]);
 
   useEffect(() => {
-    const getFetchApi = async () => {
-      const dataMeals = await fetchMeals();
-      setDrinksRecipes(dataMeals);
-    };
-
-    getFetchApi();
+    fetchMeals()
+      .then((recipes) => {
+        setMealsRecipes(recipes);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar planetas:', error);
+      });
   }, []);
 
+  const value = {
+    mealsRecipes,
+    setMealsRecipes,
+  };
+
   return (
-    <MealsContext.Provider value={ mealsRecipes }>
+    <MealsContext.Provider value={ value }>
       { children }
     </MealsContext.Provider>
   );

@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { DrinksContextType } from '../../types';
 
-const DrinksContext = createContext < DrinksContextType | null >({
+const DrinksContext = createContext < DrinksContextType >({
   drinksRecipes: [],
   setDrinksRecipes: () => {},
 });
