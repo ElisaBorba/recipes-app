@@ -9,7 +9,7 @@ function SearchBar({ title }: { title: string }) {
   const infoData = useContext(DataContext);
   const firstLetter = 'first-letter';
   const navigate = useNavigate();
-  const alert = "Sorry, we haven't found any recipes for these filters";
+  const alert = "Sorry, we haven't found any recipes for these filters.";
 
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
