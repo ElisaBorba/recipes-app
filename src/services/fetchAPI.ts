@@ -17,7 +17,6 @@ export const fetchMealsCategories = async () => {
   const response = await fetch(URL);
   const data = await response.json();
   const fiveCategories = data.meals?.slice(0, 5);
-  console.log('Meals Categories', fiveCategories);
   return fiveCategories;
 };
 
@@ -26,6 +25,14 @@ export const fetchDrinksCategories = async () => {
   const response = await fetch(URL);
   const data = await response.json();
   const fiveCategories = data.drinks?.slice(0, 5);
-  console.log('Drinks Categories', fiveCategories);
   return fiveCategories;
+};
+
+export const fetchFilterMeals = async (url:string) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${url}`;
+  const response = await fetch(URL);
+  const data = await response.json();
+  const twelveCategories = data.meals?.slice(0, 12);
+  console.log('FILTER MEALS', twelveCategories);
+  return twelveCategories;
 };
