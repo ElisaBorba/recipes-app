@@ -64,8 +64,8 @@ describe('Verifica se o componente SearchBar existe e se funciona como o esperad
     // Verifica se o botão de execução de busca está renderizado.
     expect(button).toBeInTheDocument();
   });
-  it('Verificar as buscas de drinks', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+  it('Verificar as buscas de comidas', async () => {
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
     const button = screen.getByRole('img', {
       name: /ícone de procura/i,
     });
@@ -76,8 +76,47 @@ describe('Verifica se o componente SearchBar existe e se funciona como o esperad
     const searchButton = screen.getByRole('button', {
       name: /search/i,
     });
+    const firstLetterRadio = screen.getByTestId('first-letter-search-radio');
 
-    await userEvent.type(inputSearch, 'gin');
+    fireEvent.click(firstLetterRadio);
+
+    await userEvent.type(inputSearch, 'chicken');
     await userEvent.click(searchButton);
+    expect(inputSearch.value).toBe('chicken');
+  });
+  it('Verificando buscas', async () => {
+    render(
+      <MemoryRouter>
+        <DataProvider>
+          <App />
+        </DataProvider>
+      </MemoryRouter>,
+    );
+    const emailInput = screen.getByRole('textbox', {
+      name: /e-mail/i,
+    });
+    const passwordInput = screen.getByLabelText(/senha/i);
+    const loginButton = screen.getByRole('button', {
+      name: /entrar/i,
+    });
+
+    await userEvent.type(emailInput, 'alguem@email.com');
+    await userEvent.type(passwordInput, '1234567');
+    await userEvent.click(loginButton);
+
+    const searchButton = screen.getByRole('img', {
+      name: /ícone de procura/i,
+    });
+    fireEvent.click(searchButton);
+
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
+
+    await userEvent.type(inputSearch, 'chicken');
+
+    const searchButton2 = screen.getByRole('button', {
+      name: /search/i,
+    });
+    await userEvent.click(searchButton2);
   });
 });
