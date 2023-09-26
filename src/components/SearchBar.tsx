@@ -1,10 +1,15 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DataContext from '../context/datacontext';
+import RecipeListMeals from './RecipeListMeals';
+import RecipeListDrinks from './RecipeListDrinks';
 
 function SearchBar({ title }: { title: string }) {
   const [searchType, setSearchType] = useState('ingredient');
   const infoData = useContext(DataContext);
   const firstLetter = 'first-letter';
+  const navigate = useNavigate();
+  const alert = "Sorry, we haven't found any recipes for these filters";
 
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -12,7 +17,7 @@ function SearchBar({ title }: { title: string }) {
       window.alert('Your search must have only 1 (one) character');
     } else if (title === 'Meals') {
       performSearchMeals();
-    } else if (title === 'Drinks') {
+    } else {
       performSearchDrinks();
     }
   };
@@ -31,9 +36,17 @@ function SearchBar({ title }: { title: string }) {
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
-      infoData.setResults(data.meals || []); // Verifique a estrutura da resposta da API
+      if (data.meals === null) {
+        window.alert(alert);
+      }
+      if (data.meals.length === 1) {
+      // Se apenas uma comida for encontrada, redirecione para a página de detalhes.
+        navigate(`/meals/${data.meals[0].idMeal}`);
+      } else {
+        infoData.setResults(data.meals);
+      }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.log(error);
     }
   };
 
@@ -51,12 +64,20 @@ function SearchBar({ title }: { title: string }) {
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
-      infoData.setResults(data.drinks || []); // Verifique a estrutura da resposta da API
+      if (data.drinks === null) {
+        window.alert(alert);
+      }
+      if (data.drinks.length === 1) {
+      // Se apenas uma comida for encontrada, redirecione para a página de detalhes.
+        navigate(`/drinks/${data.drinks[0].idDrink}`);
+      } else {
+        infoData.setResults(data.drinks);
+      }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      window.alert(alert);
+      console.log(error);
     }
   };
-
   return (
     <div>
       <input
@@ -92,6 +113,11 @@ function SearchBar({ title }: { title: string }) {
       >
         Search
       </button>
+      {infoData.results.length > 0 && (
+        title === 'Meals'
+          ? <RecipeListMeals recipes={ infoData.results.slice(0, 12) } /> // Exibe as 12 primeiras receitas
+          : <RecipeListDrinks recipes={ infoData.results.slice(0, 12) } /> // Exibe as 12 primeiras receitas
+      )}
     </div>
   );
 }
