@@ -9,7 +9,7 @@ export default function Drinks() {
         <Header title="Drinks" isProfile isSearch />
       </header>
       <main>
-        <Recipes />
+        <Recipes isDrinksPage />
       </main>
     </>
   );

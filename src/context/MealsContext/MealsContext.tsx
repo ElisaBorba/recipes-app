@@ -1,6 +1,7 @@
 import { createContext } from 'react';
+import { MealsContextType } from '../../types';
 
-const MealsContext = createContext<any>({
+const MealsContext = createContext<MealsContextType>({
   mealsRecipes: [],
   setMealsRecipes: () => {},
 });

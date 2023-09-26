@@ -3,6 +3,11 @@ export type DrinksContextType = {
   setDrinksRecipes: (drinks: DrinkType[]) => void;
 };
 
+export type MealsContextType = {
+  mealsRecipes: MealType[] | null,
+  setMealsRecipes: (meals: MealType[]) => void;
+};
+
 export type DrinkType = {
   idDrink: string;
   strDrink: string;
