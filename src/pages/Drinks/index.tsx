@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import Header from '../../components/Header';
 import Recipes from '../../components/Recipes';
 import DrinksContext from '../../context/DrinksContext/DrinksContext';
+import Footer from '../../components/Footer';
 
 export default function Drinks() {
   const { drinksCategories } = useContext(DrinksContext);
@@ -25,6 +26,7 @@ export default function Drinks() {
         )}
         <Recipes isDrinksPage />
       </main>
+      <Footer />
     </>
   );
 }
