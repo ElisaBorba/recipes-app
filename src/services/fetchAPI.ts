@@ -36,3 +36,12 @@ export const fetchFilterMeals = async (url:string) => {
   console.log('FILTER MEALS', twelveCategories);
   return twelveCategories;
 };
+
+export const fetchFilterDrinks = async (url:string) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${url}`;
+  const response = await fetch(URL);
+  const data = await response.json();
+  const twelveCategories = data.drinks?.slice(0, 12);
+  console.log('DRINKS MEALS', twelveCategories);
+  return twelveCategories;
+};
