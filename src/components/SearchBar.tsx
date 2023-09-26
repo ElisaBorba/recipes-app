@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import DataContext from '../context/datacontext';
 
-function SearchBar() {
+function SearchBar({ title }: { title: string }) {
   const [searchType, setSearchType] = useState('ingredient');
   const infoData = useContext(DataContext);
   const firstLetter = 'first-letter';
@@ -10,12 +10,14 @@ function SearchBar() {
     event.preventDefault();
     if (searchType === firstLetter && infoData.search.length !== 1) {
       window.alert('Your search must have only 1 (one) character');
-    } else {
-      performSearch();
+    } else if (title === 'Meals') {
+      performSearchMeals();
+    } else if (title === 'Drinks') {
+      performSearchDrinks();
     }
   };
 
-  const performSearch = async () => {
+  const performSearchMeals = async () => {
     let endpoint = '';
 
     if (searchType === 'ingredient') {
@@ -30,6 +32,26 @@ function SearchBar() {
       const response = await fetch(endpoint);
       const data = await response.json();
       infoData.setResults(data.meals || []); // Verifique a estrutura da resposta da API
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const performSearchDrinks = async () => {
+    let endpoint = '';
+
+    if (searchType === 'ingredient') {
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${infoData.search}`;
+    } else if (searchType === 'name') {
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${infoData.search}`;
+    } else if (searchType === firstLetter) {
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${infoData.search}`;
+    }
+
+    try {
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      infoData.setResults(data.drinks || []); // Verifique a estrutura da resposta da API
     } catch (error) {
       console.error('Error fetching data:', error);
     }

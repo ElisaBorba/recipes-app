@@ -49,7 +49,7 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
               placeholder="Search"
             />
           </label>
-          <SearchBar />
+          <SearchBar title={ title } />
         </form>
       )}
     </div>
