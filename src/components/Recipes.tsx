@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import DrinksContext from '../context/DrinksContext/DrinksContext';
 import MealsContext from '../context/MealsContext/MealsContext';
 
-interface RecipesProps {
-  isDrinksPage: boolean;
-}
-
-export default function Recipes({ isDrinksPage }: RecipesProps) {
-  const { drinksRecipes } = useContext(DrinksContext);
+export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
+  const { drinksRecipes, isLoading } = useContext(DrinksContext);
   const twelveDrinks = drinksRecipes?.slice(0, 12);
 
   const { mealsRecipes } = useContext(MealsContext);
   const twelveMeals = mealsRecipes?.slice(0, 12);
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
 
   return (
     <>
