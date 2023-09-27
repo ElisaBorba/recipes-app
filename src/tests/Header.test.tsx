@@ -3,12 +3,13 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import App from '../App';
 import { renderWithRouter } from './utils/renderWithRouter';
+import { DataProvider } from '../context/dataprovider';
 
 const SEARCH_ICON = 'search-top-btn';
 
 describe('Verifica se os elementos de Header existem e se funcionam como o esperado', () => {
   it('O ícone de perfil é um botão que redireciona para perfil', async () => {
-    renderWithRouter(<App />, { route: '/meals' });
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
 
     const mealsTitle = screen.getByRole('heading', {
       name: /meals/i,
@@ -29,7 +30,7 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
   });
 
   it('Na página Drinks, o ícone de perfil é um botão que redireciona para perfil', async () => {
-    renderWithRouter(<App />, { route: '/drinks' });
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
 
     const drinksTitle = screen.getByRole('heading', {
       name: /drinks/i,
@@ -43,7 +44,7 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
   });
 
   it('Botão Search existe em Header e ao clicá-lo é mostrado o input de pesquisa.', async () => {
-    renderWithRouter(<App />, { route: '/meals' });
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
 
     const searchBtn = screen.getByRole('img', { name: /ícone de procura/i });
     expect(searchBtn).toBeInTheDocument();
@@ -59,7 +60,7 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
   });
 
   it('O ícone de perfil deve aparecer na página Done Recipes, mas não o ícone de procura', async () => {
-    renderWithRouter(<App />, { route: '/done-recipes' });
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/done-recipes' });
 
     const profileBtn = screen.getByRole('img', { name: /ícone de perfil/i });
     const searchBtn = screen.queryByTestId(SEARCH_ICON);
@@ -72,7 +73,7 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
   });
 
   it('O ícone de perfil e o ícone de procura não devem aparecer na página Drinks in Progress, somente seu título', async () => {
-    renderWithRouter(<App />, { route: '/drinks/:id-da-receita/in-progress' });
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks/:id-da-receita/in-progress' });
 
     const profileBtn = screen.queryByTestId('profile-top-btn');
     const searchBtn = screen.queryByTestId(SEARCH_ICON);
@@ -85,7 +86,7 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
   });
 
   it('Verifica se existe o titulo e o ícone de perfil na página Favorite Recipes', async () => {
-    renderWithRouter(<App />, { route: '/favorite-recipes' });
+    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/favorite-recipes' });
 
     const favoriteRecipesTitle = screen.getByRole('heading', { name: /favorite recipes/i });
 
