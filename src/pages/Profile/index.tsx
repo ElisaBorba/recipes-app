@@ -18,7 +18,6 @@ function Profile() {
     localStorage.clear();
     navigate('/');
   };
-  //testando
 
   return (
     <>
