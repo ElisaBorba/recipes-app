@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
+import DataContext from '../context/datacontext';
 
 type HeaderType = {
   title: string,
@@ -10,7 +12,7 @@ type HeaderType = {
 };
 
 export default function Header({ title, isProfile, isSearch }: HeaderType) {
-  const [searchBar, setSearchBar] = useState('');
+  const infoData = useContext(DataContext);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
@@ -41,12 +43,13 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
             <input
               type="text"
               id="searchBar"
-              value={ searchBar }
-              onChange={ ({ target }) => setSearchBar(target.value) }
+              value={ infoData.search }
+              onChange={ ({ target }) => infoData.setSearch(target.value) }
               data-testid="search-input"
               placeholder="Search"
             />
           </label>
+          <SearchBar title={ title } />
         </form>
       )}
     </div>

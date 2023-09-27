@@ -20,10 +20,10 @@ function App() {
       <Route path="/login" element={ <Login /> } />
       <Route path="/meals" element={ <Meals /> } />
       <Route path="/drinks" element={ <Drinks /> } />
-      <Route path="/meals/:id-da-receita" element={ <MealsReceita /> } />
-      <Route path="/drinks/:id-da-receita" element={ <DrinksReceita /> } />
-      <Route path="/meals/:id-da-receita/in-progress" element={ <MealsProgress /> } />
-      <Route path="/drinks/:id-da-receita/in-progress" element={ <DrinksProgress /> } />
+      <Route path="/meals/:id" element={ <MealsReceita /> } />
+      <Route path="/drinks/:id" element={ <DrinksReceita /> } />
+      <Route path="/meals/:id/in-progress" element={ <MealsProgress /> } />
+      <Route path="/drinks/:id/in-progress" element={ <DrinksProgress /> } />
       <Route path="/profile" element={ <Profile /> } />
       <Route path="/done-recipes" element={ <DoneRecipes /> } />
       <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />

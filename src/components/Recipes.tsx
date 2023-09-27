@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext/DrinksContext';
 import MealsContext from '../context/MealsContext/MealsContext';
 import { fetchFilterMeals, fetchFilterDrinks } from '../services/fetchAPI';
@@ -105,8 +106,9 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
             </div>
           )}
           {drinksToShow?.map(({ strDrinkThumb, strDrink, idDrink }, index: number) => (
-            <div
+            <Link
               key={ idDrink }
+              to={ `/drinks/${idDrink}` }
               data-testid={ `${index}-recipe-card` }
             >
               <p data-testid={ `${index}-card-name` }>{strDrink}</p>
@@ -115,7 +117,7 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
                 src={ strDrinkThumb }
                 alt={ strDrink }
               />
-            </div>
+            </Link>
           ))}
         </div>
       )}
@@ -142,9 +144,10 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
             </div>
           )}
           {mealsToShow?.map(({ strMealThumb, strMeal, idMeal }, index: number) => (
-            <div
+            <Link
               key={ idMeal }
               data-testid={ `${index}-recipe-card` }
+              to={ `/meals/${idMeal}` }
             >
               <p data-testid={ `${index}-card-name` }>{strMeal}</p>
               <img
@@ -152,7 +155,7 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
                 src={ strMealThumb }
                 alt={ strMeal }
               />
-            </div>
+            </Link>
           ))}
         </div>
       )}
