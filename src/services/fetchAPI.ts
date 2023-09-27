@@ -28,7 +28,7 @@ export const fetchDrinksCategories = async () => {
   return fiveCategories;
 };
 
-export const fetchFilterMeals = async (url:string) => {
+export const fetchFilterMeals = async (url: string) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${url}`;
   const response = await fetch(URL);
   const data = await response.json();
@@ -37,7 +37,7 @@ export const fetchFilterMeals = async (url:string) => {
   return twelveCategories;
 };
 
-export const fetchFilterDrinks = async (url:string) => {
+export const fetchFilterDrinks = async (url: string) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${url}`;
   const response = await fetch(URL);
   const data = await response.json();

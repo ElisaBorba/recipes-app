@@ -2,15 +2,18 @@ import { useContext, useEffect, useState } from 'react';
 import DrinksContext from '../context/DrinksContext/DrinksContext';
 import MealsContext from '../context/MealsContext/MealsContext';
 import { fetchFilterMeals, fetchFilterDrinks } from '../services/fetchAPI';
-import { MealType, DrinkType } from '../types';
+import { MealType, DrinkType, DrinksCategories, MealsCategories } from '../types';
 
 export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
   const { drinksRecipes, drinksCategories, isLoading } = useContext(DrinksContext);
   const { mealsRecipes, mealsCategories } = useContext(MealsContext);
   const [filteredMeals, setFilteredMeals] = useState<MealType[] | undefined>([]);
-  const [selectedMealCategory, setSelectedMealCategory] = useState(null);
+  const [selectedMealCategory,
+    setSelectedMealCategory] = useState<MealsCategories | null>(null);
   const [filteredDrinks, setFilteredDrinks] = useState<DrinkType[] | undefined>([]);
-  const [selectedDrinkCategory, setSelectedDrinkCategory] = useState(null);
+  const [selectedDrinkCategory,
+    setSelectedDrinkCategory] = useState<DrinksCategories | null>(null);
+  const [filterActive, setFilterActive] = useState(false);
 
   const twelveDrinks = drinksRecipes?.slice(0, 12);
   const twelveMeals = mealsRecipes?.slice(0, 12);
@@ -25,7 +28,7 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
 
   useEffect(() => {
     if (selectedMealCategory) {
-      fetchFilterMeals(selectedMealCategory)
+      fetchFilterMeals(selectedMealCategory.strCategory)
         .then((filteredMealsData) => {
           setFilteredMeals(filteredMealsData);
         })
@@ -37,7 +40,7 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
 
   useEffect(() => {
     if (selectedDrinkCategory) {
-      fetchFilterDrinks(selectedDrinkCategory)
+      fetchFilterDrinks(selectedDrinkCategory.strCategory)
         .then((filteredDrinksData) => {
           setFilteredDrinks(filteredDrinksData);
         })
@@ -47,15 +50,29 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
     }
   }, [selectedDrinkCategory]);
 
-  const handleFilterFetch = (strCategory:any, isDrinksCategory: boolean) => {
-    if (isDrinksCategory) {
-      setSelectedDrinkCategory(strCategory);
+  const handleMealsFilter = (strCategory: MealsCategories) => {
+    if (selectedMealCategory?.strCategory === strCategory.strCategory && filterActive) {
+      setSelectedMealCategory(null);
+      setFilterActive(false);
     } else {
       setSelectedMealCategory(strCategory);
+      setFilterActive(true);
     }
   };
 
+  const handleDrinksFilter = (strCategory: DrinksCategories) => {
+    if (selectedDrinkCategory?.strCategory === strCategory.strCategory && filterActive) {
+      setSelectedDrinkCategory(null);
+      setFilterActive(false);
+    } else {
+      setSelectedDrinkCategory(strCategory);
+      setFilterActive(true);
+    }
+  };
   const handleFilterAll = () => {
+    setSelectedMealCategory(null);
+    setSelectedDrinkCategory(null);
+    setFilterActive(false);
     setFilteredMeals(twelveMeals);
     setFilteredDrinks(twelveDrinks);
   };
@@ -76,13 +93,13 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
               >
                 All
               </button>
-              {drinksCategories.map(({ strCategory }, index) => (
+              {drinksCategories.map((category, index) => (
                 <button
                   key={ index }
-                  data-testid={ `${strCategory}-category-filter` }
-                  onClick={ () => handleFilterFetch(strCategory, true) }
+                  data-testid={ `${category.strCategory}-category-filter` }
+                  onClick={ () => handleDrinksFilter(category) }
                 >
-                  {strCategory}
+                  {category.strCategory}
                 </button>
               ))}
             </div>
@@ -113,13 +130,13 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
               >
                 All
               </button>
-              {mealsCategories.map(({ strCategory }, index) => (
+              {mealsCategories.map((category, index) => (
                 <button
                   key={ index }
-                  data-testid={ `${strCategory}-category-filter` }
-                  onClick={ () => handleFilterFetch(strCategory, false) }
+                  data-testid={ `${category.strCategory}-category-filter` }
+                  onClick={ () => handleMealsFilter(category) }
                 >
-                  {strCategory}
+                  {category.strCategory}
                 </button>
               ))}
             </div>
