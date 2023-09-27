@@ -8,12 +8,15 @@ type DataProviderProps = {
 export function DataProvider({ children }: DataProviderProps) {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+  const [pageTitle, setPageTitle] = useState('');
 
   const values = {
     search,
     setSearch,
     results,
     setResults,
+    pageTitle,
+    setPageTitle,
   };
 
   return (

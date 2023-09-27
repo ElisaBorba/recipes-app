@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext/DrinksContext';
 import MealsContext from '../context/MealsContext/MealsContext';
 import { fetchFilterMeals, fetchFilterDrinks } from '../services/fetchAPI';
 import { MealType, DrinkType, DrinksCategories, MealsCategories } from '../types';
+import RecipeListMeals from './RecipeListMeals';
+import RecipeListDrinks from './RecipeListDrinks';
+import DataContext from '../context/datacontext';
 
 export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
   const { drinksRecipes, drinksCategories, isLoading } = useContext(DrinksContext);
@@ -15,6 +17,8 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
   const [selectedDrinkCategory,
     setSelectedDrinkCategory] = useState<DrinksCategories | null>(null);
   const [filterActive, setFilterActive] = useState(false);
+
+  const infoData = useContext(DataContext);
 
   const twelveDrinks = drinksRecipes?.slice(0, 12);
   const twelveMeals = mealsRecipes?.slice(0, 12);
@@ -105,20 +109,9 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
               ))}
             </div>
           )}
-          {drinksToShow?.map(({ strDrinkThumb, strDrink, idDrink }, index: number) => (
-            <Link
-              key={ idDrink }
-              to={ `/drinks/${idDrink}` }
-              data-testid={ `${index}-recipe-card` }
-            >
-              <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ strDrinkThumb }
-                alt={ strDrink }
-              />
-            </Link>
-          ))}
+          {infoData.results.length > 0 ? (
+            <RecipeListDrinks recipes={ infoData.results.slice(0, 12) } />
+          ) : <RecipeListDrinks recipes={ drinksToShow } />}
         </div>
       )}
 
@@ -143,20 +136,9 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
               ))}
             </div>
           )}
-          {mealsToShow?.map(({ strMealThumb, strMeal, idMeal }, index: number) => (
-            <Link
-              key={ idMeal }
-              data-testid={ `${index}-recipe-card` }
-              to={ `/meals/${idMeal}` }
-            >
-              <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ strMealThumb }
-                alt={ strMeal }
-              />
-            </Link>
-          ))}
+          {infoData.results.length > 0 ? (
+            <RecipeListMeals recipes={ infoData.results.slice(0, 12) } />
+          ) : <RecipeListMeals recipes={ mealsToShow } />}
         </div>
       )}
     </>

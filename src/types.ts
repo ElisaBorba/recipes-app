@@ -1,5 +1,4 @@
 export type MealsContextType = {
-  isLoading: boolean;
   mealsRecipes: MealType[] | null,
   setMealsRecipes: (meals: MealType[]) => void;
   mealsCategories: MealsCategories[] | null,
@@ -7,7 +6,6 @@ export type MealsContextType = {
 };
 
 export type DrinksContextType = {
-  isLoading: boolean;
   drinksRecipes: DrinkType[] | null,
   setDrinksRecipes: (drinks: DrinkType[]) => void;
   drinksCategories: DrinksCategories[] | null,

@@ -8,7 +8,6 @@ type DrinksProviderProps = {
 };
 
 function DrinksProvider({ children }: DrinksProviderProps) {
-  const [isLoading, setIsLoading] = useState(true);
   const [drinksRecipes, setDrinksRecipes] = useState<DrinkType[] | null>([]);
   const [drinksCategories,
     setDrinksCategories] = useState<DrinksCategories[] | null >([]);
@@ -17,11 +16,9 @@ function DrinksProvider({ children }: DrinksProviderProps) {
     fetchDrinks()
       .then((recipes) => {
         setDrinksRecipes(recipes);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Erro ao buscar receitas de bebidas:', error);
-        setIsLoading(false);
       });
   }, []);
 
@@ -37,7 +34,6 @@ function DrinksProvider({ children }: DrinksProviderProps) {
   const value = {
     drinksRecipes,
     setDrinksRecipes,
-    isLoading,
     drinksCategories,
     setDrinksCategories,
   };

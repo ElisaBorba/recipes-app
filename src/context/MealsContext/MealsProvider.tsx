@@ -8,7 +8,6 @@ type MealsProviderProps = {
 };
 
 function MealsProvider({ children }: MealsProviderProps) {
-  const [isLoading, setIsLoading] = useState(true);
   const [mealsRecipes, setMealsRecipes] = useState<MealType[] | null >([]);
   const [mealsCategories,
     setMealsCategories] = useState<MealsCategories[] | null >([]);
@@ -17,11 +16,9 @@ function MealsProvider({ children }: MealsProviderProps) {
     fetchMeals()
       .then((recipes) => {
         setMealsRecipes(recipes);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Erro ao buscar planetas:', error);
-        setIsLoading(false);
       });
   }, []);
 
@@ -37,7 +34,6 @@ function MealsProvider({ children }: MealsProviderProps) {
   const value = {
     mealsRecipes,
     setMealsRecipes,
-    isLoading,
     mealsCategories,
     setMealsCategories,
   };
