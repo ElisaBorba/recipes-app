@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function Profile() {
   const emailUser = localStorage.getItem('user');
@@ -21,8 +22,9 @@ function Profile() {
 
   return (
     <>
-      <Header title="Profile" isProfile={ false } isSearch={ false } />
+      <Header title="Profile" isProfile isSearch={ false } />
       <h2 data-testid="profile-email">{ emailUser }</h2>
+      <Footer />
       <button
         data-testid="profile-done-btn"
         onClick={ handleClickRecipes }
