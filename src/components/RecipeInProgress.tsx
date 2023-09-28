@@ -1,12 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DataContext from '../context/datacontext';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
   const { id } = useParams();
 
   const [ingredientChecklist, setIngredientChecklist] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -32,6 +37,43 @@ function RecipeInProgress() {
     fetchRecipeDetails();
   }, [id, setRecipe]);
 
+  useEffect(() => {
+    // Verifique se a receita atual está favoritada no localStorage ao carregar a página
+    const isRecipeFavorited = JSON.parse(localStorage
+      .getItem('favoriteRecipes') || '[]').some(
+      (favRecipe: {
+        id: string;
+        type: string;
+        name: string;
+        image: string;
+        nationality: string;
+        category: string;
+        alcoholicOrNot: string;
+      }) => favRecipe.id === id,
+    );
+    setIsFavorite(isRecipeFavorited);
+  }, [id]);
+
+  const toggleFavorite = () => {
+    // Atualize o estado "isFavorite" e o localStorage ao clicar no botão "Favoritar"
+    setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+    updateFavoriteRecipes(); // Atualize as receitas favoritas
+  };
+
+  const copyRecipeLink = () => {
+    const recipeURL = window.location.href;
+    const regex = /^(.*?)(?=\/in-progress|$)/;
+    const result = recipeURL.match(regex);
+    if (result) {
+      const extractedPart = result[1];
+      navigator.clipboard.writeText(extractedPart).then(() => {
+        setCopySuccess(true);
+      });
+    } else {
+      console.log('Não foi possível extrair a parte desejada da URL.');
+    }
+  };
+
   const toggleIngredientCheck = (ingredientIndex: string) => {
     const updatedIngredientChecklist = {
       ...ingredientChecklist,
@@ -39,15 +81,61 @@ function RecipeInProgress() {
     };
 
     setIngredientChecklist(updatedIngredientChecklist);
-    localStorage
-      .setItem(`recipe-${id}-checklist`, JSON.stringify(updatedIngredientChecklist));
+    localStorage.setItem(`recipe-${id}-checklist`, JSON
+      .stringify(updatedIngredientChecklist));
   };
 
   useEffect(() => {
-    const savedIngredientChecklist = (
-      JSON.parse(localStorage.getItem(`recipe-${id}-checklist`) || '[]'));
+    const savedIngredientChecklist = JSON.parse(
+      localStorage.getItem(`recipe-${id}-checklist`) || '[]',
+    );
     setIngredientChecklist(savedIngredientChecklist);
   }, [id]);
+
+  const updateFavoriteRecipes = () => {
+    const favoriteRecipe = {
+      id,
+      type: window.location.pathname.includes('/meals/') ? 'meal' : 'drink',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic || '',
+    };
+
+    const existingFavoriteRecipes = (
+      JSON.parse(localStorage.getItem('favoriteRecipes') || '[]'));
+
+    const isAlreadyFavorite = existingFavoriteRecipes.some(
+      (favRecipe: {
+        id: string;
+        type: string;
+        name: string;
+        image: string;
+        nationality: string;
+        category: string;
+        alcoholicOrNot: string;
+      }) => favRecipe.id === favoriteRecipe.id,
+    );
+
+    if (isAlreadyFavorite) {
+      const updatedFavoriteRecipes = existingFavoriteRecipes.filter(
+        (favRecipe: {
+          id: string;
+          type: string;
+          name: string;
+          image: string;
+          nationality: string;
+          category: string;
+          alcoholicOrNot: string;
+        }) => favRecipe.id !== favoriteRecipe.id,
+      );
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
+    } else {
+      const updatedFavoriteRecipes = [...existingFavoriteRecipes, favoriteRecipe];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
+    }
+  };
 
   if (!recipe) {
     return <div>Receita não encontrada</div>;
@@ -86,9 +174,7 @@ function RecipeInProgress() {
             return (
               <li key={ ingredientIndex }>
                 <label
-                  data-testid={ `${
-                    parseInt(ingredientIndex, 10) - 1
-                  }-ingredient-step` }
+                  data-testid={ `${parseInt(ingredientIndex, 10) - 1}-ingredient-step` }
                   style={ {
                     textDecoration: ingredientChecklist[parseInt(ingredientIndex, 10)]
                       ? 'line-through solid black'
@@ -98,8 +184,8 @@ function RecipeInProgress() {
                   <input
                     type="checkbox"
                     checked={
-                         ingredientChecklist[parseInt(ingredientIndex, 10)] || false
-                        }
+                        ingredientChecklist[parseInt(ingredientIndex, 10)] || false
+                    }
                     onChange={ () => toggleIngredientCheck(ingredientIndex) }
                   />
                   {`${recipe[key]} - ${recipe[measureKey]}`}
@@ -110,8 +196,28 @@ function RecipeInProgress() {
           return null;
         })}
       </ul>
-      <button data-testid="share-btn">Compartilhar</button>
-      <button data-testid="favorite-btn">Favoritar</button>
+      <button
+        data-testid="share-btn"
+        onClick={ copyRecipeLink }
+      >
+        <img src={ shareIcon } alt="share" />
+      </button>
+      {copySuccess && <p>Link copied!</p>}
+      {isFavorite
+        ? <input
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ toggleFavorite }
+            src={ blackHeartIcon }
+            alt="favorite"
+        />
+        : <input
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ toggleFavorite }
+            src={ whiteHeartIcon }
+            alt="favorite"
+        />}
       <button data-testid="finish-recipe-btn">Finalizar Receita</button>
     </div>
   );
