@@ -1,10 +1,13 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DataContext from '../context/datacontext';
 
 function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
   const { id } = useParams();
+
+  // Estado inicial como objeto vazio para manter o progresso dos ingredientes
+  const [ingredientChecklist, setIngredientChecklist] = useState([]);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -28,6 +31,26 @@ function RecipeInProgress() {
     };
 
     fetchRecipeDetails();
+  }, [id, setRecipe]);
+
+  // Função para alternar o estado do checkbox de um ingrediente
+  const toggleIngredientCheck = (ingredientIndex: string) => {
+    const updatedIngredientChecklist = {
+      ...ingredientChecklist,
+      [ingredientIndex]: !ingredientChecklist[parseInt(ingredientIndex, 10)],
+    };
+
+    // Atualize o estado e o localStorage
+    setIngredientChecklist(updatedIngredientChecklist);
+    localStorage
+      .setItem(`recipe-${id}-checklist`, JSON.stringify(updatedIngredientChecklist));
+  };
+
+  useEffect(() => {
+    // Verifique se há um estado salvo no localStorage para esta receita
+    const savedIngredientChecklist = (
+      JSON.parse(localStorage.getItem(`recipe-${id}-checklist`) || '[]'));
+    setIngredientChecklist(savedIngredientChecklist);
   }, [id]);
 
   if (!recipe) {
@@ -35,13 +58,13 @@ function RecipeInProgress() {
   }
 
   const {
-    strMealThumb, // URL da imagem da receita
-    strDrinkThumb, // URL da imagem da bebida
-    strMeal, // Título da receita
-    strDrink, // Título da bebida
-    strCategory, // Categoria da receita (em caso de comidas)
-    strAlcoholic, // Se é alcoólica (em caso de bebidas)
-    strInstructions, // Instruções da receita
+    strMealThumb,
+    strDrinkThumb,
+    strMeal,
+    strDrink,
+    strCategory,
+    strAlcoholic,
+    strInstructions,
   } = recipe;
 
   return (
@@ -67,10 +90,22 @@ function RecipeInProgress() {
             return (
               <li key={ ingredientIndex }>
                 <label
-                  data-testid={ (
-                     `${parseInt(ingredientIndex, 10) - 1}-ingredient-step`) }
+                  data-testid={ `${
+                    parseInt(ingredientIndex, 10) - 1
+                  }-ingredient-step` }
+                  style={ {
+                    textDecoration: ingredientChecklist[parseInt(ingredientIndex, 10)]
+                      ? 'line-through solid black'
+                      : 'none',
+                  } }
                 >
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={
+                         ingredientChecklist[parseInt(ingredientIndex, 10)] || false
+                        }
+                    onChange={ () => toggleIngredientCheck(ingredientIndex) }
+                  />
                   {`${recipe[key]} - ${recipe[measureKey]}`}
                 </label>
               </li>
@@ -79,7 +114,6 @@ function RecipeInProgress() {
           return null;
         })}
       </ul>
-
       <button data-testid="share-btn">Compartilhar</button>
       <button data-testid="favorite-btn">Favoritar</button>
       <button data-testid="finish-recipe-btn">Finalizar Receita</button>

@@ -28,7 +28,7 @@ function RecipeDetails() {
     };
 
     fetchRecipeDetails();
-  }, [id]);
+  }, [id, setRecipe]);
 
   if (!recipe) {
     return <div>Receita não encontrada</div>;
