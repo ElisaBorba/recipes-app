@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import DataContext from '../context/datacontext';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -8,10 +8,16 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [ingredientChecklist, setIngredientChecklist] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [areAllIngredientsChecked, setAreAllIngredientsChecked] = useState(false);
+
+  const handleFinishRecipe = () => {
+    navigate('/done-recipes');
+  };
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -83,6 +89,11 @@ function RecipeInProgress() {
     setIngredientChecklist(updatedIngredientChecklist);
     localStorage.setItem(`recipe-${id}-checklist`, JSON
       .stringify(updatedIngredientChecklist));
+
+    const allChecked = Object.keys(updatedIngredientChecklist).every(
+      (key) => updatedIngredientChecklist[key],
+    );
+    setAreAllIngredientsChecked(allChecked);
   };
 
   useEffect(() => {
@@ -218,7 +229,13 @@ function RecipeInProgress() {
             src={ whiteHeartIcon }
             alt="favorite"
         />}
-      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ !areAllIngredientsChecked }
+        onClick={ handleFinishRecipe }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }
