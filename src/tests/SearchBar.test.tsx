@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
@@ -6,6 +5,8 @@ import { DataProvider } from '../context/dataprovider';
 import { renderWithRouter } from './utils/renderWithRouter';
 import App from '../App';
 import SearchBar from '../components/SearchBar';
+import MealsProvider from '../context/MealsContext/MealsProvider';
+import DrinksProvider from '../context/DrinksContext/DrinksProvider';
 
 const name = 'name-search-radio';
 const ingredient = 'ingredient-search-radio';
@@ -14,7 +15,8 @@ const execButton = 'exec-search-btn';
 
 describe('Testando o searchBar', () => {
   it('Verificar as buscas de comidas', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
+
     const button = screen.getByRole('img', {
       name: /ícone de procura/i,
     });
@@ -34,10 +36,15 @@ describe('Testando o searchBar', () => {
     render(
       <MemoryRouter>
         <DataProvider>
-          <App />
+          <MealsProvider>
+            <DrinksProvider>
+              <App />
+            </DrinksProvider>
+          </MealsProvider>
         </DataProvider>
       </MemoryRouter>,
     );
+
     const emailInput = screen.getByRole('textbox', {
       name: /e-mail/i,
     });
@@ -72,7 +79,7 @@ describe('Testando o searchBar', () => {
     expect(elemento2).toBeInTheDocument();
   });
   it('Verificando busca por nome', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -98,7 +105,7 @@ describe('Testando o searchBar', () => {
     expect(elemento2).toBeInTheDocument();
   });
   it('Busca por first letter', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -126,7 +133,7 @@ describe('Testando o searchBar', () => {
 });
 describe('Teste de first letter', () => {
   it('Verificando first letter', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -154,7 +161,7 @@ describe('Teste de first letter', () => {
 });
 describe('Verifica se o componente SearchBar existe e se funciona como o esperado', () => {
   it('Busca por name', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -176,7 +183,7 @@ describe('Verifica se o componente SearchBar existe e se funciona como o esperad
 });
 describe('Verifica se o componente SearchBar existe e se funciona como o esperado', () => {
   it('Busca por ingredient', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -198,7 +205,7 @@ describe('Verifica se o componente SearchBar existe e se funciona como o esperad
 });
 describe('Teste de 1 item como resposta', () => {
   it('Busca por 1 item', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -220,7 +227,7 @@ describe('Teste de 1 item como resposta', () => {
 });
 describe('Teste de comportamento esperado', () => {
   it('Busca por algo inexistente', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -242,7 +249,7 @@ describe('Teste de comportamento esperado', () => {
 });
 describe('Testando pesquisa com 1 letra', () => {
   it('teste first letter com mais de 1 letra', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -264,7 +271,7 @@ describe('Testando pesquisa com 1 letra', () => {
 });
 describe('Teste com drinks', () => {
   it('Busca por drink inexistente', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/drinks' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -286,7 +293,7 @@ describe('Teste com drinks', () => {
 });
 describe('Testando radios', () => {
   it('Verifica se os radios estão funcionando', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -308,7 +315,7 @@ describe('Testando radios', () => {
 });
 describe('Testando log de erros', () => {
   it('Verifica se o log de erros está funcionando', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -330,7 +337,7 @@ describe('Testando log de erros', () => {
 });
 describe('Testando window alert', () => {
   it('Testando window alert quando o resultado é null', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -352,7 +359,7 @@ describe('Testando window alert', () => {
 });
 describe('Testando a pagina e funcionalidades', () => {
   it('Testando a pagina e funcionalidades', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -378,7 +385,7 @@ describe('Testando a pagina e funcionalidades', () => {
 });
 describe('Testando as linhas 68 e 69 do searchbar', () => {
   it('Testando as linhas 68 e 69 do searchbar', async () => {
-    renderWithRouter(<DataProvider><App /></DataProvider>, { route: '/meals' });
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
       name: /ícone de procura/i,
@@ -400,7 +407,7 @@ describe('Testando as linhas 68 e 69 do searchbar', () => {
 
     await userEvent.click(searchButton2);
 
-    const elemento = await screen.findByTestId('3-card-img');
+    const elemento = await screen.findByAltText(/big mac/i);
     expect(elemento).toBeInTheDocument();
   });
 });
@@ -408,9 +415,14 @@ describe('Testando as linhas 68 e 69 do searchbar', () => {
 describe('SearchBar Component', () => {
   beforeEach(() => {
     render(
+
       <MemoryRouter>
         <DataProvider>
-          <SearchBar title="Meals" />
+          <MealsProvider>
+            <DrinksProvider>
+              <SearchBar title="Meals" />
+            </DrinksProvider>
+          </MealsProvider>
         </DataProvider>
       </MemoryRouter>,
     );
