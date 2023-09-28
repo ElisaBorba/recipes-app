@@ -2,9 +2,9 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DataContext from '../context/datacontext';
 
-function RecipeDetails() {
-  const { id } = useParams();
+function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -33,6 +33,7 @@ function RecipeDetails() {
   if (!recipe) {
     return <div>Receita não encontrada</div>;
   }
+
   const {
     strMealThumb, // URL da imagem da receita
     strDrinkThumb, // URL da imagem da bebida
@@ -41,7 +42,6 @@ function RecipeDetails() {
     strCategory, // Categoria da receita (em caso de comidas)
     strAlcoholic, // Se é alcoólica (em caso de bebidas)
     strInstructions, // Instruções da receita
-    strYoutube, // Link do vídeo do YouTube (somente comidas)
   } = recipe;
 
   return (
@@ -53,48 +53,16 @@ function RecipeDetails() {
       />
       <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
       {strCategory && <p data-testid="recipe-category">{strCategory}</p>}
-      {strAlcoholic && <p data-testid="recipe-category">{strAlcoholic}</p>}
-
-      <h3>Ingredientes:</h3>
-      <ul>
-        {Object.keys(recipe).map((key) => {
-          if (key.startsWith('strIngredient') && recipe[key]) {
-            const ingredientIndex = key.replace('strIngredient', '');
-            const measureKey = `strMeasure${ingredientIndex}`;
-            return (
-              <li
-                key={ ingredientIndex }
-                data-testid={ (
-                     `${parseInt(ingredientIndex, 10) - 1}-ingredient-name-and-measure`) }
-              >
-                {`${recipe[key]} - ${recipe[measureKey]}`}
-              </li>
-            );
-          }
-          return null;
-        })}
-      </ul>
+      {strAlcoholic && <p data-testid="recipe-alcoholic">{strAlcoholic}</p>}
 
       <h3>Instruções:</h3>
       <p data-testid="instructions">{strInstructions}</p>
 
-      {strYoutube && (
-        <div>
-          <h3>Vídeo:</h3>
-          <iframe
-            data-testid="video"
-            width="560"
-            height="315"
-            src={ `https://www.youtube.com/embed/${(strYoutube as string).substring(
-              (strYoutube as string).lastIndexOf('/') + 1,
-            )}` }
-            title="Embedded Video"
-            allowFullScreen
-          />
-        </div>
-      )}
+      <button data-testid="share-btn">Compartilhar</button>
+      <button data-testid="favorite-btn">Favoritar</button>
+      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
     </div>
   );
 }
 
-export default RecipeDetails;
+export default RecipeInProgress;
