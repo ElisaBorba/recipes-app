@@ -1,8 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../context/datacontext';
-import RecipeListMeals from './RecipeListMeals';
-import RecipeListDrinks from './RecipeListDrinks';
 
 function SearchBar({ title }: { title: string }) {
   const [searchType, setSearchType] = useState('ingredient');
@@ -113,11 +111,6 @@ function SearchBar({ title }: { title: string }) {
       >
         Search
       </button>
-      {infoData.results.length > 0 && (
-        title === 'Meals'
-          ? <RecipeListMeals recipes={ infoData.results.slice(0, 12) } /> // Exibe as 12 primeiras receitas
-          : <RecipeListDrinks recipes={ infoData.results.slice(0, 12) } /> // Exibe as 12 primeiras receitas
-      )}
     </div>
   );
 }
