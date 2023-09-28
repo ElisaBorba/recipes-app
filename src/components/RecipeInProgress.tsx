@@ -6,7 +6,6 @@ function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
   const { id } = useParams();
 
-  // Estado inicial como objeto vazio para manter o progresso dos ingredientes
   const [ingredientChecklist, setIngredientChecklist] = useState([]);
 
   useEffect(() => {
@@ -33,21 +32,18 @@ function RecipeInProgress() {
     fetchRecipeDetails();
   }, [id, setRecipe]);
 
-  // Função para alternar o estado do checkbox de um ingrediente
   const toggleIngredientCheck = (ingredientIndex: string) => {
     const updatedIngredientChecklist = {
       ...ingredientChecklist,
       [ingredientIndex]: !ingredientChecklist[parseInt(ingredientIndex, 10)],
     };
 
-    // Atualize o estado e o localStorage
     setIngredientChecklist(updatedIngredientChecklist);
     localStorage
       .setItem(`recipe-${id}-checklist`, JSON.stringify(updatedIngredientChecklist));
   };
 
   useEffect(() => {
-    // Verifique se há um estado salvo no localStorage para esta receita
     const savedIngredientChecklist = (
       JSON.parse(localStorage.getItem(`recipe-${id}-checklist`) || '[]'));
     setIngredientChecklist(savedIngredientChecklist);
