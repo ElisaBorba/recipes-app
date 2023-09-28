@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RecipesType } from '../../@type/ContextType';
+import Header from '../../components/Header';
+import Profile from '../Profile';
 
 function DoneRecipes() {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -41,6 +43,8 @@ function DoneRecipes() {
 
   return (
     <>
+      <Header title="Done Recipes" isProfile isSearch={ false } />
+      <Profile />
       <button
         data-testid="filter-by-all-btn"
         onClick={ () => setActiveFilter('All') }
