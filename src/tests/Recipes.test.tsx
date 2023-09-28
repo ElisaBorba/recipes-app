@@ -1,12 +1,10 @@
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
 import App from '../App';
 import { renderWithRouter } from './utils/renderWithRouter';
 import { DataProvider } from '../context/dataprovider';
 import MealsProvider from '../context/MealsContext/MealsProvider';
 import DrinksProvider from '../context/DrinksContext/DrinksProvider';
-import { mockDrinks } from './utils/mockRecipe';
 
 describe('Verifica se os elementos de Recipe existem e se funcionam como o esperado', () => {
   it('Botões de categoria filtram corretamente pelo seu nome', async () => {
@@ -98,32 +96,50 @@ describe('Verifica se os elementos de Recipe existem e se funcionam como o esper
       expect(firstCard).toBeInTheDocument();
     });
   });
+  it('Botões de categoria de Meals, funcionam como um toggle ativa/desativa', async () => {
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
-  // it('A categoria selecionada corresponde à categoria clicada', async () => {
-  //   renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
+    await waitFor(() => {
+      const btnBreakfast = screen.getByRole('button', { name: /breakfast/i });
+      userEvent.click(btnBreakfast);
+    });
 
-  //   await waitFor(() => {
-  //     const btnShake = screen.getByRole('button', { name: /shake/i });
-  //     expect(btnShake).toBeInTheDocument();
-  //   });
+    await waitFor(() => {
+      const firstTitle = screen.getByText(/bread omelette/i);
+      expect(firstTitle).toBeInTheDocument();
+    });
 
-  //   const btnShake = screen.getByRole('button', { name: /shake/i });
-  //   userEvent.click(btnShake);
+    const btnBreakfast = screen.getByRole('button', { name: /breakfast/i });
+    await userEvent.click(btnBreakfast);
 
-  //   await waitFor(() => {
-  //     const firstCard = screen.getByRole('img', { name: /151 florida bushwacker/i });
+    const secondTitle = screen.queryByText(/sushi/i);
+    expect(secondTitle).toBeInTheDocument();
 
-  //     expect(firstCard.getAttribute('src')).toBe('https://www.thecocktaildb.com/images/media/drink/rvwrvv1468877323.jpg');
-  //     expect(firstCard.getAttribute('alt')).toBe('151 Florida Bushwacker');
-  //   });
-  // });
+    const breadTitle = screen.queryByText(/bread omelette/i);
+    expect(breadTitle).not.toBeInTheDocument();
+  });
+
+  it('Botões de categoria de Drinks, funcionam como um toggle ativa/desativa', async () => {
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
+
+    await waitFor(() => {
+      const btnOrdinary = screen.getByRole('button', { name: /ordinary drink/i });
+      userEvent.click(btnOrdinary);
+    });
+
+    await waitFor(() => {
+      const firstTitle = screen.getByText(/410 gone/i);
+      expect(firstTitle).toBeInTheDocument();
+    });
+
+    const btnOrdinary = screen.getByRole('button', { name: /ordinary drink/i });
+
+    await userEvent.click(btnOrdinary);
+
+    const secondTitle = screen.getByText(/a1/i);
+    expect(secondTitle).toBeInTheDocument();
+
+    const drinkOrdinaryTitle = screen.queryByText(/410 gone/i);
+    expect(drinkOrdinaryTitle).not.toBeInTheDocument();
+  });
 });
-
-// describe('Verifica se os elementos de Recipe existem e se funcionam como o esperado', () => {
-//   it('Endpoint', async () => {
-//     renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
-
-//      const URL_API = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-//     expect(fetch).toBeCalledWith(URL_API);
-//   });
-// });
