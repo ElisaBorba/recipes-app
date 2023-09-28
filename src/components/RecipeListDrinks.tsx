@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+import { DrinkType } from '../types';
 
 function RecipeListDrinks({ recipes }: any) {
   return (
     <div>
       {
-        recipes.map((recipe: any, index: number) => (
+        recipes.map((recipe: DrinkType, index: number) => (
           <Link
             key={ index }
             data-testid={ `${index}-recipe-card` }
