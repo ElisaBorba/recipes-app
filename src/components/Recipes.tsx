@@ -8,7 +8,7 @@ import RecipeListDrinks from './RecipeListDrinks';
 import DataContext from '../context/datacontext';
 
 export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
-  const { drinksRecipes, drinksCategories, isLoading } = useContext(DrinksContext);
+  const { drinksRecipes, drinksCategories } = useContext(DrinksContext);
   const { mealsRecipes, mealsCategories } = useContext(MealsContext);
   const [filteredMeals, setFilteredMeals] = useState<MealType[] | undefined>([]);
   const [selectedMealCategory,
@@ -81,10 +81,6 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
     setFilteredMeals(twelveMeals);
     setFilteredDrinks(twelveDrinks);
   };
-
-  if (isLoading) {
-    return <p>Carregando...</p>;
-  }
 
   return (
     <>
