@@ -9,6 +9,7 @@ export function DataProvider({ children }: DataProviderProps) {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [pageTitle, setPageTitle] = useState('');
+  const [recipe, setRecipe] = useState(null);
 
   const values = {
     search,
@@ -17,6 +18,8 @@ export function DataProvider({ children }: DataProviderProps) {
     setResults,
     pageTitle,
     setPageTitle,
+    recipe,
+    setRecipe,
   };
 
   return (

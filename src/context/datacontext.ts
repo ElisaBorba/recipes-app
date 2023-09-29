@@ -7,6 +7,8 @@ type DataContextType = {
   setResults: (results: []) => void;
   pageTitle: string,
   setPageTitle:(page: string) => void;
+  recipe: any;
+  setRecipe: (recipe: any) => void;
 };
 
 const DataContext = createContext<DataContextType>({} as DataContextType);

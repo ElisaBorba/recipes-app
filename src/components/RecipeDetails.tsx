@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import DataContext from '../context/datacontext';
 
 function RecipeDetails() {
   const { id } = useParams();
-  const [recipe, setRecipe] = useState(null);
+  const { recipe, setRecipe } = useContext(DataContext);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -22,13 +23,12 @@ function RecipeDetails() {
           console.error('Erro ao buscar detalhes da receita:', response);
         }
       } catch (error) {
-        // Trate o erro aqui.
         console.error('Erro ao buscar detalhes da receita:', error);
       }
     };
 
     fetchRecipeDetails();
-  }, [id]);
+  }, [id, setRecipe]);
 
   if (!recipe) {
     return <div>Receita não encontrada</div>;
