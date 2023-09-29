@@ -335,8 +335,8 @@ describe('Testando log de erros', () => {
     await userEvent.click(searchButton2);
   });
 });
-describe('Testando window alert', () => {
-  it('Testando window alert quando o resultado é null', async () => {
+describe('Testando window alert quando o resultado é null', () => {
+  it('Funcionalidade do window alert página Meals', async () => {
     renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
 
     const searchButton = screen.getByRole('img', {
@@ -348,7 +348,26 @@ describe('Testando window alert', () => {
     fireEvent.click(nameRadio);
     const inputSearch = screen.getByRole('textbox');
     expect(inputSearch).toBeInTheDocument();
+    await userEvent.type(inputSearch, 'aaaaaaaa');
 
+    const searchButton2 = screen.getByRole('button', {
+      name: /search/i,
+    });
+    await userEvent.click(searchButton2);
+  });
+
+  it('Funcionalidade do window alert página Drinks', async () => {
+    renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/drinks' });
+
+    const searchButton = screen.getByRole('img', {
+      name: /ícone de procura/i,
+    });
+    fireEvent.click(searchButton);
+
+    const nameRadio = screen.getByTestId(name);
+    fireEvent.click(nameRadio);
+    const inputSearch = screen.getByRole('textbox');
+    expect(inputSearch).toBeInTheDocument();
     await userEvent.type(inputSearch, 'aaaaaaaa');
 
     const searchButton2 = screen.getByRole('button', {
@@ -357,6 +376,7 @@ describe('Testando window alert', () => {
     await userEvent.click(searchButton2);
   });
 });
+
 describe('Testando a pagina e funcionalidades', () => {
   it('Testando a pagina e funcionalidades', async () => {
     renderWithRouter(<DataProvider><MealsProvider><DrinksProvider><App /></DrinksProvider></MealsProvider></DataProvider>, { route: '/meals' });
