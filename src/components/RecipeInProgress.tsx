@@ -9,16 +9,29 @@ function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [ingredientChecklist, setIngredientChecklist] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const [areAllIngredientsChecked, setAreAllIngredientsChecked] = useState(false);
-
+  const pageTitle = window.location.pathname.includes('/meals/') ? 'meal' : 'drink';
+  const dateNow = new Date();
   const handleFinishRecipe = () => {
     navigate('/done-recipes');
+    const doneRecipe = {
+      id,
+      nationality: recipe.strArea || '',
+      name: recipe.strMeal || recipe.strDrink,
+      category: recipe.strCategory || '',
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+      tags: recipe.strTags ? recipe.strTags.split(',') : [],
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      type: pageTitle,
+      doneDate: dateNow.toISOString(),
+    };
+    const existingDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
+    const updatedDoneRecipes = [...existingDoneRecipes, doneRecipe];
+    localStorage.setItem('doneRecipes', JSON.stringify(updatedDoneRecipes));
   };
-
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       try {
@@ -39,10 +52,8 @@ function RecipeInProgress() {
         console.error('Erro ao buscar detalhes da receita:', error);
       }
     };
-
     fetchRecipeDetails();
   }, [id, setRecipe]);
-
   useEffect(() => {
     // Verifique se a receita atual está favoritada no localStorage ao carregar a página
     const isRecipeFavorited = JSON.parse(localStorage
@@ -128,7 +139,6 @@ function RecipeInProgress() {
         alcoholicOrNot: string;
       }) => favRecipe.id === favoriteRecipe.id,
     );
-
     if (isAlreadyFavorite) {
       const updatedFavoriteRecipes = existingFavoriteRecipes.filter(
         (favRecipe: {
@@ -147,11 +157,9 @@ function RecipeInProgress() {
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
     }
   };
-
   if (!recipe) {
     return <div>Receita não encontrada</div>;
   }
-
   const {
     strMealThumb,
     strDrinkThumb,
@@ -161,7 +169,6 @@ function RecipeInProgress() {
     strAlcoholic,
     strInstructions,
   } = recipe;
-
   return (
     <div>
       <img
