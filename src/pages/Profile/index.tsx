@@ -22,7 +22,7 @@ function Profile() {
 
   return (
     <>
-      <Header title="Profile" isProfile={ false } isSearch={ false } />
+      <Header title="Profile" isProfile isSearch={ false } />
       <h2 data-testid="profile-email">{ emailUser }</h2>
       <button
         data-testid="profile-done-btn"
