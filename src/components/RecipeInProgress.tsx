@@ -39,9 +39,7 @@ function RecipeInProgress() {
         const apiUrl = isFoodRecipe
           ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
           : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-
         const response = await fetch(apiUrl);
-
         if (response.ok) {
           const data = await response.json();
           setRecipe(data.meals?.[0] || data.drinks?.[0] || null);
@@ -55,7 +53,6 @@ function RecipeInProgress() {
     fetchRecipeDetails();
   }, [id, setRecipe]);
   useEffect(() => {
-    // Verifique se a receita atual está favoritada no localStorage ao carregar a página
     const isRecipeFavorited = JSON.parse(localStorage
       .getItem('favoriteRecipes') || '[]').some(
       (favRecipe: {
@@ -72,11 +69,9 @@ function RecipeInProgress() {
   }, [id]);
 
   const toggleFavorite = () => {
-    // Atualize o estado "isFavorite" e o localStorage ao clicar no botão "Favoritar"
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
-    updateFavoriteRecipes(); // Atualize as receitas favoritas
+    updateFavoriteRecipes();
   };
-
   const copyRecipeLink = () => {
     const recipeURL = window.location.href;
     const regex = /^(.*?)(?=\/in-progress|$)/;
@@ -90,30 +85,25 @@ function RecipeInProgress() {
       console.log('Não foi possível extrair a parte desejada da URL.');
     }
   };
-
   const toggleIngredientCheck = (ingredientIndex: string) => {
-    const updatedIngredientChecklist = {
+    const updatedIngredientChecklist: any = {
       ...ingredientChecklist,
       [ingredientIndex]: !ingredientChecklist[parseInt(ingredientIndex, 10)],
     };
-
     setIngredientChecklist(updatedIngredientChecklist);
-    localStorage.setItem(`recipe-${id}-checklist`, JSON
-      .stringify(updatedIngredientChecklist));
-
+    localStorage
+      .setItem(`recipe-${id}-checklist`, JSON.stringify(updatedIngredientChecklist));
     const allChecked = Object.keys(updatedIngredientChecklist).every(
       (key) => updatedIngredientChecklist[key],
     );
     setAreAllIngredientsChecked(allChecked);
   };
-
   useEffect(() => {
     const savedIngredientChecklist = JSON.parse(
       localStorage.getItem(`recipe-${id}-checklist`) || '[]',
     );
     setIngredientChecklist(savedIngredientChecklist);
   }, [id]);
-
   const updateFavoriteRecipes = () => {
     const favoriteRecipe = {
       id,
@@ -124,10 +114,8 @@ function RecipeInProgress() {
       category: recipe.strCategory || '',
       alcoholicOrNot: recipe.strAlcoholic || '',
     };
-
     const existingFavoriteRecipes = (
       JSON.parse(localStorage.getItem('favoriteRecipes') || '[]'));
-
     const isAlreadyFavorite = existingFavoriteRecipes.some(
       (favRecipe: {
         id: string;
@@ -179,10 +167,8 @@ function RecipeInProgress() {
       <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
       {strCategory && <p data-testid="recipe-category">{strCategory}</p>}
       {strAlcoholic && <p data-testid="recipe-alcoholic">{strAlcoholic}</p>}
-
       <h3>Instruções:</h3>
       <p data-testid="instructions">{strInstructions}</p>
-
       <h3>Ingredientes:</h3>
       <ul>
         {Object.keys(recipe).map((key) => {
