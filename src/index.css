@@ -5,7 +5,14 @@
   
   --purple:  #41197F;
 
-  --shadow: #0000001a;
+  --yellow-200:  #FCC436;
+
+  --yellow: #FCDC36;
+
+
+  --box-shadow: 0px 7px 15px 0px #44495540;
+
+  --input-border: 0.5px solid #41197F
 }
 
 * {
@@ -15,5 +22,5 @@
 }
 
 body {
-  background-color: var(--background);
+  font-family: Epilogue , sans-serif;
 }

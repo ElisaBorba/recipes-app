@@ -1,12 +1,66 @@
-.container {
+.form {
   align-items: center;
   background-color: var(--background);
+  color: var(--purple);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0;
-  padding: 0;
-  width: 100%;
+  min-height: 65vh;
+  text-align: center;
 }
 
-/* className={ styles.container } */
+.form input {
+  align-items: center;
+  border: var(--input-border);
+  border-radius: 5px;
+  height: 40px;
+  left: 42px;
+  margin-top: 0.7rem;
+  top: 613px;
+  width: 276px;
+  z-index: 1;
+}
+
+.form input::placeholder {
+  color: var(--purple);
+  text-indent: 1.2rem;
+}
+
+.title {
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.165em;
+  line-height: 21px;
+  text-align: center;
+}
+
+.form button {
+  background-color: var(--yellow-200);
+  border: none;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 900;
+  height: 40px;
+  left: 42px;
+  margin-top: 1rem;
+  top: 662px;
+  width: 276px;
+}
+
+.imageFood {
+  align-items: center;
+  display: flex;
+  height: 220px;
+  justify-content: center;
+  margin-bottom: -100px;
+  margin-top: 20px;
+  position: relative;
+  width: 360px;
+  z-index: 2;
+}
+
+.images {
+  background-color: var(--purple);
+  padding-top: 35px;
+}
