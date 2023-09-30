@@ -1,5 +1,7 @@
 :root {
   --white: white;
+
+  --black: black;
   
   --background: white;
   
@@ -9,8 +11,9 @@
 
   --yellow: #FCDC36;
 
+  --gray: #797D86;
 
-  --box-shadow: 0px 7px 15px 0px #44495540;
+  --box-shadow: 0px 5px 10px 0px rgb(201, 192, 192);
 
   --input-border: 0.5px solid #41197F
 }

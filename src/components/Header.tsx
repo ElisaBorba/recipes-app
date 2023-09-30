@@ -4,6 +4,7 @@ import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import DataContext from '../context/datacontext';
+import styles from './Header.module.css';
 
 type HeaderType = {
   title: string,
@@ -16,7 +17,13 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
-    <div>
+    <div className={ styles.header }>
+      <h1
+        className={ styles.title }
+        data-testid="page-title"
+      >
+        {title}
+      </h1>
       {isProfile && (
         <NavLink to="/profile">
           <img data-testid="profile-top-btn" src={ ProfileIcon } alt="Ícone de Perfil" />
@@ -34,8 +41,6 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
           />
         </button>
       )}
-      <h1 data-testid="page-title">{title}</h1>
-
       {showSearchBar
       && (
         <form>

@@ -1,0 +1,33 @@
+.card {
+  animation-duration: 300ms;
+  animation-timing-function: ease-out;
+  border: 1px solid gray;
+  border-radius: 5%;
+  box-shadow: var(--box-shadow);
+  color: var(--blacky);
+  display: flex;
+  flex-direction: column;
+
+  /* justify-content: space-between; */
+  margin: auto;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  text-decoration: none;
+}
+
+.card img {
+  border-radius: 5%;
+  height: 166.21px;
+  width: 163.35px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
