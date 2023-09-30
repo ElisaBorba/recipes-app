@@ -1,10 +1,37 @@
-import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import DataContext from '../context/datacontext';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
   const { recipe, setRecipe } = useContext(DataContext);
+  const [buttonText, setButtonText] = useState('Start Recipe');
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const navigate = useNavigate();
+  const typeOf = () => {
+    if (window.location.pathname.includes('/meals/')) {
+      return 'meals';
+    }
+    return 'drinks';
+  };
+  const StartRecipeButton = styled.button`
+  position: fixed;
+  bottom: 0;
+  right: 50%;
+  width: 10%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+`;
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -29,10 +56,94 @@ function RecipeDetails() {
 
     fetchRecipeDetails();
   }, [id, setRecipe]);
+  useEffect(() => {
+    const isRecipeFavorited = JSON.parse(localStorage
+      .getItem('favoriteRecipes') || '[]').some(
+      (favRecipe: {
+        id: string;
+        type: string;
+        name: string;
+        image: string;
+        nationality: string;
+        category: string;
+        alcoholicOrNot: string;
+      }) => favRecipe.id === id,
+    );
+    setIsFavorite(isRecipeFavorited);
+  }, [id]);
 
+  useEffect(() => {
+    // Verifique o localStorage para a chave inProgressRecipes
+    const inProgressRecipesFromLocalStorage = (
+      JSON.parse(localStorage.getItem(`recipe-${id}-checklist`) || '{}'));
+
+    // Verifique se a receita atual já está em andamento
+    if (inProgressRecipesFromLocalStorage[id as string]) {
+      setButtonText('Continue Recipe');
+    }
+  }, [id]);
+
+  const toggleFavorite = () => {
+    setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+    updateFavoriteRecipes();
+  };
+  const updateFavoriteRecipes = () => {
+    const favoriteRecipe = {
+      id,
+      type: window.location.pathname.includes('/meals/') ? 'meal' : 'drink',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic || '',
+    };
+    const existingFavoriteRecipes = (
+      JSON.parse(localStorage.getItem('favoriteRecipes') || '[]'));
+    const isAlreadyFavorite = existingFavoriteRecipes.some(
+      (favRecipe: {
+        id: string;
+        type: string;
+        name: string;
+        image: string;
+        nationality: string;
+        category: string;
+        alcoholicOrNot: string;
+      }) => favRecipe.id === favoriteRecipe.id,
+    );
+    if (isAlreadyFavorite) {
+      const updatedFavoriteRecipes = existingFavoriteRecipes.filter(
+        (favRecipe: {
+          id: string;
+          type: string;
+          name: string;
+          image: string;
+          nationality: string;
+          category: string;
+          alcoholicOrNot: string;
+        }) => favRecipe.id !== favoriteRecipe.id,
+      );
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
+    } else {
+      const updatedFavoriteRecipes = [...existingFavoriteRecipes, favoriteRecipe];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
+    }
+  };
   if (!recipe) {
     return <div>Receita não encontrada</div>;
   }
+  const copyRecipeLink = () => {
+    const recipeURL = window.location.href;
+    const regex = /^(.*?)(?=\/in-progress|$)/;
+    const result = recipeURL.match(regex);
+    if (result) {
+      const extractedPart = result[1];
+      navigator.clipboard.writeText(extractedPart).then(() => {
+        setCopySuccess(true);
+      });
+    } else {
+      console.log('Não foi possível extrair a parte desejada da URL.');
+    }
+  };
   const {
     strMealThumb, // URL da imagem da receita
     strDrinkThumb, // URL da imagem da bebida
@@ -93,6 +204,35 @@ function RecipeDetails() {
           />
         </div>
       )}
+      <StartRecipeButton
+        data-testid="start-recipe-btn"
+        onClick={ () => navigate(`/${typeOf()}/${id}/in-progress`) }
+      >
+        {buttonText}
+      </StartRecipeButton>
+      <input
+        type="image"
+        data-testid="share-btn"
+        onClick={ copyRecipeLink }
+        src={ shareIcon }
+        alt="share"
+      />
+      {copySuccess && <p>Link copied!</p>}
+      {isFavorite
+        ? <input
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ toggleFavorite }
+            src={ blackHeartIcon }
+            alt="favorite"
+        />
+        : <input
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ toggleFavorite }
+            src={ whiteHeartIcon }
+            alt="favorite"
+        />}
     </div>
   );
 }
