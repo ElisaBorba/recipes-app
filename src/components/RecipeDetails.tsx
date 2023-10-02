@@ -32,7 +32,6 @@ function RecipeDetails() {
   cursor: pointer;
   box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
 `;
-
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       try {
@@ -40,9 +39,7 @@ function RecipeDetails() {
         const apiUrl = isFoodRecipe
           ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
           : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-
         const response = await fetch(apiUrl);
-
         if (response.ok) {
           const data = await response.json();
           setRecipe(data.meals?.[0] || data.drinks?.[0] || null);
@@ -53,7 +50,6 @@ function RecipeDetails() {
         console.error('Erro ao buscar detalhes da receita:', error);
       }
     };
-
     fetchRecipeDetails();
   }, [id, setRecipe]);
   useEffect(() => {
@@ -71,18 +67,15 @@ function RecipeDetails() {
     );
     setIsFavorite(isRecipeFavorited);
   }, [id]);
-
   useEffect(() => {
     // Verifique o localStorage para a chave inProgressRecipes
     const inProgressRecipesFromLocalStorage = (
       JSON.parse(localStorage.getItem(`recipe-${id}-checklist`) || '{}'));
-
     // Verifique se a receita atual já está em andamento
     if (inProgressRecipesFromLocalStorage[id as string]) {
       setButtonText('Continue Recipe');
     }
   }, [id]);
-
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     updateFavoriteRecipes();
@@ -154,7 +147,6 @@ function RecipeDetails() {
     strInstructions, // Instruções da receita
     strYoutube, // Link do vídeo do YouTube (somente comidas)
   } = recipe;
-
   return (
     <div>
       <img
@@ -165,7 +157,6 @@ function RecipeDetails() {
       <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
       {strCategory && <p data-testid="recipe-category">{strCategory}</p>}
       {strAlcoholic && <p data-testid="recipe-category">{strAlcoholic}</p>}
-
       <h3>Ingredientes:</h3>
       <ul>
         {Object.keys(recipe).map((key) => {
@@ -185,10 +176,8 @@ function RecipeDetails() {
           return null;
         })}
       </ul>
-
       <h3>Instruções:</h3>
       <p data-testid="instructions">{strInstructions}</p>
-
       {strYoutube && (
         <div>
           <h3>Vídeo:</h3>
@@ -236,5 +225,4 @@ function RecipeDetails() {
     </div>
   );
 }
-
 export default RecipeDetails;
