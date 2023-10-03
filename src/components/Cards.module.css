@@ -7,8 +7,6 @@
   color: var(--blacky);
   display: flex;
   flex-direction: column;
-
-  /* justify-content: space-between; */
   margin: auto;
   margin-bottom: 1rem;
   padding-bottom: 0.8rem;
@@ -16,9 +14,9 @@
 }
 
 .card img {
-  border-radius: 5%;
-  height: 166.21px;
-  width: 163.35px;
+  border-radius: 3%;
+  height: 140px;
+  width: 160px;
 }
 
 .cards {
