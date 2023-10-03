@@ -1,5 +1,5 @@
 .footer {
-  background-color: #41197f;
+  background-color: var(--yellow);
   bottom: 0;
   display: flex;
   justify-content: space-around;
@@ -9,7 +9,6 @@
 }
 
 .icons {
-  background-color: var(--purple-100);
   border-radius: 20%;
   margin-top: 0.3rem;
   padding: 0.2rem;

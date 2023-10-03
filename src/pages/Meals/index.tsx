@@ -8,7 +8,7 @@ export default function Meals() {
       <header>
         <Header title="Meals" isProfile isSearch />
       </header>
-      <main>
+      <main style={ { paddingBottom: '60px' } }>
         <Recipes isDrinksPage={ false } />
       </main>
       <Footer />

@@ -11,11 +11,12 @@
   margin-bottom: 1rem;
   padding-bottom: 0.8rem;
   text-decoration: none;
+  width: 162px;
 }
 
 .card img {
   border-radius: 3%;
-  height: 140px;
+  height: 160px;
   width: 160px;
 }
 
@@ -25,7 +26,11 @@
 }
 
 .title {
+  font-size: small;
   margin-top: 0.5rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
   text-align: center;
+  word-wrap: break-word;
 }
 

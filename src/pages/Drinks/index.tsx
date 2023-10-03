@@ -8,7 +8,7 @@ export default function Drinks() {
       <header>
         <Header title="Drinks" isProfile isSearch />
       </header>
-      <main>
+      <main style={ { paddingBottom: '60px' } }>
         <Recipes isDrinksPage />
       </main>
       <Footer />

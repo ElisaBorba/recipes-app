@@ -29,5 +29,5 @@ export type MealsCategories = {
 };
 
 export type DrinksCategories = {
-  strCategory: 'Ordinary Drink' | 'Cocktail' | 'Other / Unknown' | 'Cocoa' | 'Goat',
+  strCategory: 'Ordinary Drink' | 'Cocktail' | 'Other / Unknown' | 'Cocoa' | 'Shake',
 };
