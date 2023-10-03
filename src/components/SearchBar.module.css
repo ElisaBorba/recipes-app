@@ -31,8 +31,9 @@
   width: 209px;
 }
 
-/* .searchBar {
-
+/*
+.searchBar {
+  background-color: var(--white);
 } */
 
 /* .searchBar input::placeholder {

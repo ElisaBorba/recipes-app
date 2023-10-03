@@ -45,10 +45,8 @@ describe('Testando o searchBar', () => {
       </MemoryRouter>,
     );
 
-    const emailInput = screen.getByRole('textbox', {
-      name: /e-mail/i,
-    });
-    const passwordInput = screen.getByLabelText(/senha/i);
+    const emailInput = screen.getByTestId('email-input');
+    const passwordInput = screen.getByTestId('password-input');
     const loginButton = screen.getByRole('button', {
       name: /entrar/i,
     });
