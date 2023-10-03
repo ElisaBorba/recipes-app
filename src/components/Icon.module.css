@@ -1,0 +1,66 @@
+.yellowBox {
+  align-items: center;
+  background-color: var(--yellow);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 140px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 140px;
+}
+
+.recipes {
+  background-color: var(--yellow-200);
+  color: var(--purple);
+  height: 45px;
+  line-height: 45px;
+  margin-top: 0;
+  padding-top: 0.7rem;
+  position: relative;
+  text-align: center;
+  transform: skewX(-15deg);
+  width: 180px;
+}
+
+.recipes:after {
+  background-color: var(--purple);
+  bottom: 0;
+  content: '';
+  display: block;
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.heart {
+  margin-bottom: -30px;
+  margin-left: 4rem;
+  margin-top: -35px;
+  position: relative;
+  z-index: 2;
+}
+
+.icon {
+  margin-bottom: -10px;
+  margin-top: 5px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.165em;
+  line-height: 21px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 38px;
+  margin-left: 0.7rem;
+  text-align: center;
+}
+

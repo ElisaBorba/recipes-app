@@ -1,0 +1,17 @@
+.header {
+  align-items: center;
+  background-color: var(--yellow);
+  height: 175px;
+  width: 360px;
+}
+
+.header button {
+  background-color: var(--yellow);
+  border: none;
+}
+
+.title {
+  color: var(--purple);
+  font-weight: 900;
+  text-transform: uppercase;
+}

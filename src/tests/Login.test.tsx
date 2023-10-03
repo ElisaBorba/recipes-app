@@ -14,7 +14,7 @@ test('renderiza o formulário de login', () => {
       <Login />
     </MemoryRouter>,
   );
-  const heading = getByText('Login');
+  const heading = getByText('LOGIN');
   const emailInput = getByTestId(emailEnter);
   const passwordInput = getByTestId(passwordEnter);
   const submitButton = getByTestId(btnEnter);
