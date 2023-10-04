@@ -1,7 +1,11 @@
 .header {
   align-items: center;
   background-color: var(--purple);
-  height: 175px;
+  display: flex;
+
+  /* height: 175px; */
+  height: 52px;
+  justify-content: space-around;
   width: 100%;
 }
 
