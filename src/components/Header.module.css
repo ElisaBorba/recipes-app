@@ -32,7 +32,7 @@
   max-width: 100%;
 }
 
-.searchBar input[ type = 'text' ] {
+.searchBarInput[ type = 'text' ] {
   border: 1px;
   border-radius: 10px;
   height: 40px;

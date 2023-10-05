@@ -46,7 +46,7 @@ export default function Header({ title, isProfile, isSearch }: HeaderType) {
         <form className={ styles.searchBar }>
           <label htmlFor="searchBar">
             <input
-              className={ styles.radioInput }
+              className={ `${styles.radioInput} ${styles.searchBarInput}` }
               type="text"
               id="searchBar"
               value={ infoData.search }

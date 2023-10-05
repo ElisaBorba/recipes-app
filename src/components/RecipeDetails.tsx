@@ -163,7 +163,7 @@ function RecipeDetails() {
         </p>
       )}
       <h3>Ingredientes:</h3>
-      <ul className={ styles.ingredients }>
+      <ul className={ `${styles.ingredients}` }>
         {Object.keys(recipe).map((key) => {
           if (key.startsWith('strIngredient') && recipe[key]) {
             const ingredientIndex = key.replace('strIngredient', '');

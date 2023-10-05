@@ -85,12 +85,8 @@
   width: 335px;
 }
 
-.ingredients input[ type = 'checkbox' ] {
-  accent-color: var(--yellow-200);
-  margin-right: 0.5rem;
-}
-
 ul {
+  accent-color: var(--yellow-200);
   list-style-type: none;
 }
 
