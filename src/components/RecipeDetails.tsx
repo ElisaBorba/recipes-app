@@ -5,6 +5,7 @@ import DataContext from '../context/datacontext';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import styles from './RecipeId.module.css';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -22,13 +23,6 @@ function RecipeDetails() {
   const StartRecipeButton = styled.button`
   position: fixed;
   bottom: 0;
-  right: 50%;
-  width: 10%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
   box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
 `;
@@ -148,17 +142,28 @@ function RecipeDetails() {
     strYoutube, // Link do vídeo do YouTube (somente comidas)
   } = recipe;
   return (
-    <div>
+    <div className={ styles.container }>
       <img
+        className={ styles.image }
         data-testid="recipe-photo"
         src={ strMealThumb || strDrinkThumb }
         alt={ strMeal || strDrink }
       />
-      <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
-      {strCategory && <p data-testid="recipe-category">{strCategory}</p>}
-      {strAlcoholic && <p data-testid="recipe-category">{strAlcoholic}</p>}
+      <h2 className={ styles.title } data-testid="recipe-title">
+        {strMeal || strDrink}
+      </h2>
+      {strCategory && (
+        <p className={ styles.typeFood } data-testid="recipe-category">
+          {strCategory}
+        </p>
+      )}
+      {strAlcoholic && (
+        <p className={ styles.typeDrink } data-testid="recipe-category">
+          {strAlcoholic}
+        </p>
+      )}
       <h3>Ingredientes:</h3>
-      <ul>
+      <ul className={ `${styles.ingredients}` }>
         {Object.keys(recipe).map((key) => {
           if (key.startsWith('strIngredient') && recipe[key]) {
             const ingredientIndex = key.replace('strIngredient', '');
@@ -182,9 +187,10 @@ function RecipeDetails() {
         <div>
           <h3>Vídeo:</h3>
           <iframe
+            className={ styles.video }
             data-testid="video"
-            width="560"
-            height="315"
+            width="336"
+            height="234"
             src={ `https://www.youtube.com/embed/${(strYoutube as string).substring(
               (strYoutube as string).lastIndexOf('/') + 1,
             )}` }

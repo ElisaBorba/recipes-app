@@ -1,0 +1,19 @@
+.buttons {
+  align-items: flex-start;
+  display: flex;
+  height: 90px;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+  max-width: 98%;
+  text-align: center;
+}
+
+.buttons button {
+  background-color: var(--white);
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  font-size: small;
+  margin-left: 0.5rem;
+  margin-right: 0.2rem;
+}

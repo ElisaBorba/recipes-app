@@ -4,6 +4,7 @@ import DataContext from '../context/datacontext';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import styles from './RecipeId.module.css';
 
 function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);
@@ -67,7 +68,6 @@ function RecipeInProgress() {
     );
     setIsFavorite(isRecipeFavorited);
   }, [id]);
-
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     updateFavoriteRecipes();
@@ -158,19 +158,30 @@ function RecipeInProgress() {
     strInstructions,
   } = recipe;
   return (
-    <div>
+    <div
+      className={ styles.container }
+    >
       <img
         data-testid="recipe-photo"
+        className={ styles.image }
         src={ strMealThumb || strDrinkThumb }
         alt={ strMeal || strDrink }
       />
-      <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
-      {strCategory && <p data-testid="recipe-category">{strCategory}</p>}
-      {strAlcoholic && <p data-testid="recipe-alcoholic">{strAlcoholic}</p>}
-      <h3>Instruções:</h3>
-      <p data-testid="instructions">{strInstructions}</p>
+      <h2 className={ styles.title } data-testid="recipe-title">
+        {strMeal || strDrink}
+      </h2>
+      {strCategory && (
+        <p className={ styles.typeFood } data-testid="recipe-category">
+          {strCategory}
+        </p>
+      )}
+      {strAlcoholic && (
+        <p className={ styles.typeDrink } data-testid="recipe-alcoholic">
+          {strAlcoholic}
+        </p>
+      )}
       <h3>Ingredientes:</h3>
-      <ul>
+      <ul className={ styles.ingredients }>
         {Object.keys(recipe).map((key) => {
           if (key.startsWith('strIngredient') && recipe[key]) {
             const ingredientIndex = key.replace('strIngredient', '');
@@ -200,6 +211,8 @@ function RecipeInProgress() {
           return null;
         })}
       </ul>
+      <h3>Instruções:</h3>
+      <p data-testid="instructions">{strInstructions}</p>
       <button
         data-testid="share-btn"
         onClick={ copyRecipeLink }
@@ -207,6 +220,13 @@ function RecipeInProgress() {
         <img src={ shareIcon } alt="share" />
       </button>
       {copySuccess && <p>Link copied!</p>}
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ !areAllIngredientsChecked }
+        onClick={ handleFinishRecipe }
+      >
+        FINALIZAR RECEITA
+      </button>
       {isFavorite
         ? <input
             type="image"
@@ -222,15 +242,7 @@ function RecipeInProgress() {
             src={ whiteHeartIcon }
             alt="favorite"
         />}
-      <button
-        data-testid="finish-recipe-btn"
-        disabled={ !areAllIngredientsChecked }
-        onClick={ handleFinishRecipe }
-      >
-        Finalizar Receita
-      </button>
     </div>
   );
 }
-
 export default RecipeInProgress;

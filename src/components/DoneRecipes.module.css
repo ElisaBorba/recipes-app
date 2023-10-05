@@ -1,0 +1,99 @@
+.card {
+  align-items: center;
+  border: 0.52px;
+  border-radius: 5px;
+  box-shadow: var(--box-shadow);
+  color: var(--black);
+  display: flex;
+  flex-flow: column wrap;
+  height: 135px;
+  justify-content: center;
+  margin: 1rem;
+  text-decoration: none;
+  width: 90%;
+}
+
+.card > :first-child {
+  align-self: flex-start;
+}
+
+.card button {
+  background-color: var(--yellow-100);
+  border: none;
+  border-radius: 100%;
+  height: 35px;
+  margin-bottom: 0.5rem;
+  width: 35px;
+}
+
+.card p {
+  margin: auto;
+}
+
+.cardImg {
+  border-radius: 5px;
+  height: 131px;
+  margin-top: 2px;
+  width: 110%;
+}
+
+.title {
+  color: var(--black);
+  font-family: monospace;
+  font-size: medium;
+  font-weight: 900;
+  justify-content: center;
+  margin-top: 5px;
+  max-width: 50%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.subtitle {
+  color: var(--gray);
+  font-family: Times New Roman , Times , serif;
+  font-size: small;
+  margin-bottom: 30px;
+}
+
+.dataText {
+  font-family: Times New Roman , Times , serif;
+  font-size: small;
+}
+
+.shareImg {
+  cursor: pointer;
+  height: 21px;
+  width: 21px;
+}
+
+.tag {
+  background-color: var(--gray-100);
+  border-radius: 10px;
+  color: var(--gray);
+  font-size: 9px;
+  font-weight: 400;
+  height: 14px;
+  letter-spacing: 0;
+  line-height: 9px;
+  padding: 0.2rem;
+  width: auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5rem;
+  max-width: 100%;
+}
+
+.buttons button {
+  align-items: center;
+  background-color: var(--white);
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+}

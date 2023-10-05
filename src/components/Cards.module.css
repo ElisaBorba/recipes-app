@@ -7,18 +7,17 @@
   color: var(--blacky);
   display: flex;
   flex-direction: column;
-
-  /* justify-content: space-between; */
   margin: auto;
   margin-bottom: 1rem;
   padding-bottom: 0.8rem;
   text-decoration: none;
+  width: 162px;
 }
 
 .card img {
-  border-radius: 5%;
-  height: 166.21px;
-  width: 163.35px;
+  border-radius: 3%;
+  height: 160px;
+  width: 160px;
 }
 
 .cards {
@@ -27,7 +26,11 @@
 }
 
 .title {
+  font-size: small;
   margin-top: 0.5rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
   text-align: center;
+  word-wrap: break-word;
 }
 

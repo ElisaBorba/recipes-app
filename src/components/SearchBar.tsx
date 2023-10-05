@@ -79,9 +79,9 @@ function SearchBar({ title }: { title: string }) {
   };
   return (
     <div className={ styles.container }>
-      <div className={ styles.searchBar }>
+      <div>
         <input
-          className={ styles.searchInput }
+          className={ styles.radioInput }
           data-testid="ingredient-search-radio"
           type="radio"
           name="search-type"
@@ -93,6 +93,7 @@ function SearchBar({ title }: { title: string }) {
           Ingredient
         </label>
         <input
+          className={ styles.radioInput }
           data-testid="name-search-radio"
           name="search-type"
           type="radio"
@@ -102,12 +103,14 @@ function SearchBar({ title }: { title: string }) {
         />
         <label htmlFor="name">Name</label>
         <input
+          className={ styles.radioInput }
           data-testid="first-letter-search-radio"
           name="search-type"
           type="radio"
           checked={ searchType === firstLetter }
           value="first-letter"
           onChange={ () => setSearchType(firstLetter) }
+          // style={}
         />
         <label htmlFor="first-letter">First Letter</label>
         <button

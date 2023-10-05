@@ -6,8 +6,6 @@
   color: var(--white);
   display: flex;
   height: 85px;
-
-  /* justify-content: space-between; */
   left: 11px;
   margin: auto;
   text-align: center;
@@ -15,33 +13,6 @@
   width: 345px;
 }
 
-/* .container input[ type = 'radio' ] {
-  color: red;
-  text-indent: 1.2rem;
-} */
-
-.searchBar button {
-  background-color: var(--yellow-200);
-  border: none;
-  border-radius: 5px;
-  color: var(--white);
-  font-weight: 900;
-  height: 25px;
-  margin-top: 0.9rem;
-  width: 209px;
-}
-
-/*
-.searchBar {
-  background-color: var(--white);
-} */
-
-/* .searchBar input::placeholder {
-    color: var(--gray);
-    text-indent: 1.2rem;
-} */
-
-.searchInput {
-  background-color: red;
-  color: red;
+.radioInput {
+  accent-color: var(--yellow-200);
 }
