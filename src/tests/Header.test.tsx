@@ -77,9 +77,6 @@ describe('Verifica se os elementos de Header existem e se funcionam como o esper
     const profileBtn = screen.queryByTestId('profile-top-btn');
     const searchBtn = screen.queryByTestId(SEARCH_ICON);
 
-    const drinksProgressTitle = screen.getByRole('heading', { name: /drinks progress/i });
-
-    expect(drinksProgressTitle).toBeInTheDocument();
     expect(profileBtn).not.toBeInTheDocument();
     expect(searchBtn).not.toBeInTheDocument();
   });

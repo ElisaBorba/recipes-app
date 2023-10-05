@@ -85,6 +85,10 @@
   width: 335px;
 }
 
+.ingredients input {
+  margin-right: 0.6rem;
+}
+
 ul {
   accent-color: var(--yellow-200);
   list-style-type: none;
