@@ -7,7 +7,7 @@ import heartIcon from '../../images/heart.png';
 import logoutcon from '../../images/logout.png';
 
 function Profile() {
-  const emailUser = localStorage.getItem('user');
+  const emailUser : string | null = localStorage.getItem('user');
   const navigate = useNavigate();
   const handleClickRecipes = () => {
     navigate('/done-recipes');
@@ -22,11 +22,21 @@ function Profile() {
     navigate('/');
   };
 
+  let emailTitle = '';
+  if (emailUser) {
+    emailTitle = JSON.parse(emailUser).email;
+  }
+
   return (
     <>
       <Header title="Profile" isProfile isSearch={ false } />
       <main className={ styles.container }>
-        <h2 data-testid="profile-email">{ emailUser }</h2>
+        <h2
+          className={ styles.email }
+          data-testid="profile-email"
+        >
+          { emailTitle }
+        </h2>
         <div className={ styles.buttons }>
           <button
             data-testid="profile-done-btn"
