@@ -1,21 +1,66 @@
 .header {
   align-items: center;
-  background-color: var(--purple);
+  background-color: var(--yellow);
   display: flex;
-
-  /* height: 175px; */
-  height: 52px;
-  justify-content: space-around;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+  max-height: 250px;
+  min-height: 52px;
+  padding-top: 0.2rem;
   width: 100%;
 }
 
 .header button {
-  background-color: var(--purple);
+  background-color: var(--yellow);
   border: none;
+  cursor: pointer;
 }
 
 .title {
-  color: var(--yellow);
+  color: var(--purple);
   font-weight: 900;
   text-transform: uppercase;
 }
+
+.searchBar {
+  align-items: center;
+  background-color: var(--purple);
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column wrap;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+}
+
+.searchBar input[ type = 'text' ] {
+  border: 1px;
+  border-radius: 10px;
+  height: 40px;
+  width: 343px;
+}
+
+.searchBar input::placeholder {
+  color: var(--gray);
+  text-indent: 1.2rem;
+}
+
+.searchBar button {
+  background-color: var(--yellow-200);
+  border: none;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 900;
+  height: 25px;
+  margin-top: 0.9rem;
+  width: 209px;
+}
+
+.radioInput[ type = 'radio' ] {
+  border-radius: 50%;
+  color: var(--yellow-200);
+}
+
+.radioInput[ type = 'radio' ]:checked {
+  color: var(--yellow-200);
+}
+

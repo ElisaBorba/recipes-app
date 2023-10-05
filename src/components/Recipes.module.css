@@ -11,6 +11,8 @@
 .buttons button {
   background-color: var(--white);
   border: none;
+  color: var(--gray);
+  cursor: pointer;
   font-size: small;
   margin-left: 0.5rem;
   margin-right: 0.2rem;

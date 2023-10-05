@@ -6,6 +6,7 @@ import styles from '../../components/DoneRecipes.module.css';
 import allDrinkIcon from '../../images/drinkall.png';
 import allMealsIcon from '../../images/mealall.png';
 import allIcon from '../../images/All.png';
+import Modal from '../../components/Modal';
 
 function DoneRecipes() {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -87,14 +88,13 @@ function DoneRecipes() {
             >
               <img
                 className={ styles.cardImg }
-                // style={ { width: '200px' } }
                 src={ recipe.image }
                 alt="imagem"
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
             <Link
-              className={ styles.link }
+              className={ styles.title }
               to={ `/${recipe.type}s/${recipe.id}` }
             >
               <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
@@ -133,7 +133,6 @@ function DoneRecipes() {
                 alt="share button"
               />
             </button>
-            {isLinkCopied && <p>Link copied!</p>}
             {recipe.tags && recipe.tags.slice(0, 2).map((tag) => (
               <p
                 className={ styles.tag }
@@ -145,6 +144,7 @@ function DoneRecipes() {
             ))}
           </div>
         ))}
+      {isLinkCopied && <Modal />}
     </>
   );
 }

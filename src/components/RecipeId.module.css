@@ -1,0 +1,116 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 70px;
+  padding: 0 1rem;
+  position: relative;
+  text-align: justify;
+}
+
+.image {
+  height: 162px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  width: 360px;
+}
+
+.title {
+  color: var(--white);
+  font-family: Times New Roman , Times , serif;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 30px;
+  margin-top: 40px;
+  position: absolute;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  top: 0;
+  z-index: 1;
+}
+
+.typeFood {
+  background-color: var(--purple-100);
+  color: var(--yellow-200);
+  font-family: cursive;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  line-height: 12px;
+  margin-top: 142px;
+  max-width: 100%;
+  padding: 4px 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 1;
+}
+
+.typeDrink {
+  background-color: var(--purple-100);
+  color: var(--yellow-200);
+  font-family: cursive;
+  font-size: 15px;
+  font-weight: 700;
+  left: 0;
+  line-height: 12px;
+  margin-top: 122px;
+  max-width: 100%;
+  padding: 4px 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 1;
+}
+
+.video {
+  border: none;
+  border-radius: 2%;
+}
+
+.ingredients {
+  border: 0.55px solid #b1b1b1;
+  border-radius: 5.35px;
+  letter-spacing: 0.15em;
+  margin: 1rem;
+  margin-bottom: 2rem;
+  max-height: 900px;
+  min-height: 20px;
+  padding: 1rem;
+  width: 335px;
+}
+
+.ingredients input[ type = 'checkbox' ] {
+  accent-color: var(--yellow-200);
+  margin-right: 0.5rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container button {
+  align-items: center;
+  background-color: var(--yellow-200);
+  border: none;
+  border-radius: 5%;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  font-family: sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  height: 50px;
+  justify-content: center;
+  letter-spacing: 0.03em;
+  line-height: 14px;
+  margin: 1rem 0 0.5rem;
+  min-width: 90%;
+  text-align: center;
+  width: 50px;
+}

@@ -144,7 +144,8 @@ export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
                   onClick={ () => handleDrinksFilter(category) }
                 >
                   <img
-                    src={ iconMap[mapCategoryToIconKey(category.strCategory)] }
+                    src={ iconMap[mapCategoryToIconKey(category
+                      .strCategory) as keyof typeof iconMap] }
                     alt={ `${category.strCategory}Icon` }
                   />
                   {category.strCategory}
