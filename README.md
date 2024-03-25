@@ -10,6 +10,8 @@ Bem-vindo ao Recipes App, uma aplicação desenvolvida em React pensada para dis
 * Acesse receitas prontas no perfil do usuário para uma experiência personalizada.
 * Visualize os ingredientes, modo de preparo e compartilhe suas receitas favoritas.
 
+[Recipes App](https://github.com/ElisaBorba/recipes-app/assets/122118734/f7fdf3cb-0bce-47cb-b5db-9da00b444cd3)
+
 ## 🛠 Tecnologias utilizadas
 * React
 * TypeScript
