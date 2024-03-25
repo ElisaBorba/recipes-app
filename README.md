@@ -1,6 +1,7 @@
 # 🍽️ Recipes App🍹
 
-Bem-vindo ao Recipes App, uma aplicação desenvolvida em React para ajudá-lo a descobrir e compartilhar receitas deliciosas para refeições e drinks! Esta aplicação oferece uma experiência culinária completa, permitindo que você explore uma ampla variedade de receitas, filtre por categoria e favorite suas receitas preferidas. Além de contar com uma interface amigável e funcionalidades intuitivas.
+Bem-vindo ao Recipes App, uma aplicação desenvolvida em React pensada para dispositivos móveis(360 x 640), que permite o usuário descobrir e compartilhar receitas deliciosas de refeições e drinks! Esta aplicação oferece uma experiência culinária completa, permitindo que você explore uma ampla variedade de receitas, filtre por categoria e favorite suas receitas preferidas. Além de contar com uma interface amigável e funcionalidades intuitivas.
+
 
 ## ⚙️ Funcionalidades
 * Navegue por uma ampla seleção de receitas de refeições e drinks;
