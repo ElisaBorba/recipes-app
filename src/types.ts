@@ -1,14 +1,14 @@
 export type MealsContextType = {
-  mealsRecipes: MealType[] | null,
+  mealsRecipes: MealType[] | null;
   setMealsRecipes: (meals: MealType[]) => void;
-  mealsCategories: MealsCategories[] | null,
+  mealsCategories: MealsCategories[] | null;
   setMealsCategories: (mealsCategories: MealsCategories[]) => void;
 };
 
 export type DrinksContextType = {
-  drinksRecipes: DrinkType[] | null,
+  drinksRecipes: DrinkType[] | null;
   setDrinksRecipes: (drinks: DrinkType[]) => void;
-  drinksCategories: DrinksCategories[] | null,
+  drinksCategories: DrinksCategories[] | null;
   setDrinksCategories: (drinksCategories: DrinksCategories[]) => void;
 };
 
@@ -25,9 +25,14 @@ export type DrinkType = {
 };
 
 export type MealsCategories = {
-  strCategory: 'Beef' | 'Breakfast' | 'Chicken' | 'Dessert' | 'Goat',
+  strCategory: 'Beef' | 'Breakfast' | 'Chicken' | 'Dessert' | 'Goat';
 };
 
 export type DrinksCategories = {
-  strCategory: 'Ordinary Drink' | 'Cocktail' | 'Other / Unknown' | 'Cocoa' | 'Shake',
+  strCategory:
+    | 'Ordinary Drink'
+    | 'Cocktail'
+    | 'Other / Unknown'
+    | 'Cocoa'
+    | 'Shake';
 };

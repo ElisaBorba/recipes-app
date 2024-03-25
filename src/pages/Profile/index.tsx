@@ -7,7 +7,7 @@ import heartIcon from '../../images/heart.png';
 import logoutcon from '../../images/logout.png';
 
 function Profile() {
-  const emailUser : string | null = localStorage.getItem('user');
+  const emailUser = localStorage.getItem('user');
   const navigate = useNavigate();
   const handleClickRecipes = () => {
     navigate('/done-recipes');
@@ -22,10 +22,7 @@ function Profile() {
     navigate('/');
   };
 
-  let emailTitle = '';
-  if (emailUser) {
-    emailTitle = JSON.parse(emailUser).email;
-  }
+  const emailTitle = emailUser ? emailUser.split(':')[1].trim().slice(1, -2) : '';
 
   return (
     <>
