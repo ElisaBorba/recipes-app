@@ -6,7 +6,6 @@ import { MealType, DrinkType, DrinksCategories, MealsCategories } from '../types
 import RecipeListMeals from './RecipeListMeals';
 import RecipeListDrinks from './RecipeListDrinks';
 import DataContext from '../context/datacontext';
-import styles from './Recipes.module.css';
 import allDrinkIcon from '../images/drinkall.png';
 import cocktailIcon from '../images/cocktail.png';
 import shakeIcon from '../images/shake.png';
@@ -19,6 +18,7 @@ import breakfastIcon from '../images/breakfast.png';
 import dessertIcon from '../images/dessert.png';
 import goatIcon from '../images/goat.png';
 import beefIcon from '../images/beef.png';
+import styles from '../styles/Recipes.module.css';
 
 export default function Recipes({ isDrinksPage }: { isDrinksPage: boolean }) {
   const { drinksRecipes, drinksCategories } = useContext(DrinksContext);

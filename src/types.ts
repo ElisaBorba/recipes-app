@@ -30,9 +30,21 @@ export type MealsCategories = {
 
 export type DrinksCategories = {
   strCategory:
-    | 'Ordinary Drink'
-    | 'Cocktail'
-    | 'Other / Unknown'
-    | 'Cocoa'
-    | 'Shake';
+  | 'Ordinary Drink'
+  | 'Cocktail'
+  | 'Other / Unknown'
+  | 'Cocoa'
+  | 'Shake';
+};
+
+export type RecipesType = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
+  tags?: string[];
+  doneDate?: string;
 };

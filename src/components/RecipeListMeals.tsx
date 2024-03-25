@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MealType } from '../types';
-import styles from './Cards.module.css';
+import styles from '../styles/Cards.module.css';
 
 function RecipeListMeals({ recipes }: any) {
   return (

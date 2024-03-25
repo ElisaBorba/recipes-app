@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBellConcierge, faHeart } from '@fortawesome/free-solid-svg-icons';
-import styles from './Icon.module.css';
+import styles from '../styles/Icon.module.css';
 
 function Icon() {
   return (

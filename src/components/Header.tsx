@@ -4,7 +4,7 @@ import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import DataContext from '../context/datacontext';
-import styles from './Header.module.css';
+import styles from '../styles/Header.module.css';
 
 type HeaderType = {
   title: string,

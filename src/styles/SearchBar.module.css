@@ -5,11 +5,8 @@
   border-radius: 10px;
   color: var(--white);
   display: flex;
-  height: 85px;
-  left: 11px;
-  margin: auto;
+  min-height: 100px;
   text-align: center;
-  top: 168px;
   width: 345px;
 }
 

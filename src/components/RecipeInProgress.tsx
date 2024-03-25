@@ -4,7 +4,7 @@ import DataContext from '../context/datacontext';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import styles from './RecipeId.module.css';
+import styles from '../styles/RecipeId.module.css';
 
 function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(DataContext);

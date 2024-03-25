@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { RecipesType } from '../../@type/ContextType';
+import { RecipesType } from '../../types';
 import Header from '../../components/Header';
-import styles from '../../components/DoneRecipes.module.css';
 import allDrinkIcon from '../../images/drinkall.png';
 import allMealsIcon from '../../images/mealall.png';
 import allIcon from '../../images/All.png';
 import Modal from '../../components/Modal';
+import styles from '../../styles/DoneRecipes.module.css';
 
 function DoneRecipes() {
   const [isLinkCopied, setIsLinkCopied] = useState(false);

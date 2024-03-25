@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../context/datacontext';
-import styles from './SearchBar.module.css';
+import styles from '../styles/SearchBar.module.css';
 
 function SearchBar({ title }: { title: string }) {
   const [searchType, setSearchType] = useState('ingredient');
@@ -110,7 +110,6 @@ function SearchBar({ title }: { title: string }) {
           checked={ searchType === firstLetter }
           value="first-letter"
           onChange={ () => setSearchType(firstLetter) }
-          // style={}
         />
         <label htmlFor="first-letter">First Letter</label>
         <button

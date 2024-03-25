@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import styles from '../../components/Profile.module.css';
 import doneIcon from '../../images/done.png';
 import heartIcon from '../../images/heart.png';
 import logoutcon from '../../images/logout.png';
+import styles from '../../styles/Profile.module.css';
 
 function Profile() {
   const emailUser = localStorage.getItem('user');

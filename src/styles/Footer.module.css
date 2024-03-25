@@ -1,0 +1,35 @@
+.footer {
+  background-color: var(--yellow);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 1%;
+  position: fixed;
+  width: 100%;
+}
+
+.icons {
+  animation: shake 1.5s infinite ease;
+  border-radius: 20%;
+  color: aliceblue;
+  font-family: Montserrat , sans-serif;
+  font-size: 3em;
+  font-weight: 900;
+  margin-top: 0.3rem;
+  padding: 0.2rem;
+}
+
+@keyframes shake {
+
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}

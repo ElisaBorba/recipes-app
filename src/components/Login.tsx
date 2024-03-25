@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from './Icon';
-import styles from './Login.module.css';
-import foodImg from '../images/pngwing.com.png';
+import food from '../images/pngwing.com.png';
+import styles from '../styles/Login.module.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -43,9 +43,9 @@ function Login() {
       <div className={ styles.images }>
         <Icon />
         <img
-          className={ styles.imageFood }
-          src={ foodImg }
-          alt="food"
+          className={ styles.foodImg }
+          src={ food }
+          alt={ food }
         />
       </div>
       <form className={ styles.form } onSubmit={ handleSubmit }>
