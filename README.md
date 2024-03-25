@@ -92,4 +92,4 @@ npm test
 Quero expressar minha gratidão a todos os colaboradores que contribuíram para este projeto. Cada um de vocês desempenhou um ótimo papel para o desenvolvimento de Recipes App. Agradeço muito pela troca de ideias e experiências.
 * [Amanda Giussani](https://github.com/amandagiussani)
 * [Flauberte Madeiro](https://github.com/flaubertemadeiro)
-* [josypamplona](https://github.com/josypamplona)
+* [Josy Pamplona](https://github.com/josypamplona)
